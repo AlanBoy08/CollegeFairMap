@@ -64,7 +64,7 @@ function animateLine(canvasId, startX, startY, endX, endY) {
     context.moveTo(startX, startY);
     context.lineTo(newX, newY);
     context.strokeStyle = 'orange';
-    context.lineWidth = 2;
+    context.lineWidth = 3.5;
     context.stroke();
 
     // If the line is fully drawn, draw the arrowhead
@@ -119,7 +119,7 @@ function animateLinet1(canvasId, startX, startY, tX, tY, endX, endY) {
       context.moveTo(startX, startY);
       context.lineTo(currentX1, currentY1);
       context.strokeStyle = 'orange';
-      context.lineWidth = 2;
+      context.lineWidth = 3.5;
       context.stroke();
 
       if (currentProgress >= 1) {
@@ -141,7 +141,7 @@ function animateLinet1(canvasId, startX, startY, tX, tY, endX, endY) {
 
       context.lineTo(currentX2, currentY2);
       context.strokeStyle = 'orange';
-      context.lineWidth = 2;
+      context.lineWidth = 3.5;
       context.stroke();
 
       // If the line is fully drawn, draw the arrowhead
@@ -198,7 +198,7 @@ function animateLinet2(canvasId, startX, startY, t1X, t1Y, t2X, t2Y, endX, endY)
           context.moveTo(startX, startY);
           context.lineTo(currentX1, currentY1);
           context.strokeStyle = 'orange';
-          context.lineWidth = 2;
+          context.lineWidth = 3.5;
           context.stroke();
 
           if (currentProgress >= 1) {
@@ -220,7 +220,7 @@ function animateLinet2(canvasId, startX, startY, t1X, t1Y, t2X, t2Y, endX, endY)
 
           context.lineTo(currentX2, currentY2);
           context.strokeStyle = 'orange';
-          context.lineWidth = 2;
+          context.lineWidth = 3.5;
           context.stroke();
 
           if (currentProgress >= 1) {
@@ -243,7 +243,7 @@ function animateLinet2(canvasId, startX, startY, t1X, t1Y, t2X, t2Y, endX, endY)
 
           context.lineTo(currentX3, currentY3);
           context.strokeStyle = 'orange';
-          context.lineWidth = 2;
+          context.lineWidth = 3.5;
           context.stroke();
 
           // If the line is fully drawn, draw the arrowhead
@@ -320,18 +320,14 @@ function confirmDownstairsSelection() {
           break; // Exit the loop once the correct room is found
       }
   }
-
-  // Canvas code stays the same
   const canvas = document.getElementById("GFFloorCanvas");
   const context = canvas.getContext('2d');
   context.clearRect(0, 0, canvas.width, canvas.height);
-  document.getElementById("result").innerHTML = "";
+  document.getElementById("resultuni").innerHTML = "";
   document.getElementById("result").innerHTML = "You are near: " + selectedfloorval;
 }
 function navigateRoomToRoom(startRoom, endRoom) {
   const canvasId = "GFFloorCanvas";
-  
-  // Define room coordinates
   const roomCoordinates = {
     "Kiosk 1":{x:499,y:152, corridor:"C2"},
     "Kiosk 2":{x:499,y:363, corridor:"C3"},
@@ -374,9 +370,9 @@ function navigateRoomToRoom(startRoom, endRoom) {
 
   // Define turning points between corridors
   const turningPoints = {
-      "C1_C2": {x: 499, y: 152},  // Turning point between Corridor 1 and Corridor 2
-      "C2_C3": {x: 499, y: 363},  // Turning point between Corridor 2 and Corridor 3
-      "C1_C3_T1": {x: 499, y: 152}, // First turning point between Corridor 1 and Corridor 3
+      "C1_C2": {x: 499, y: 152},  
+      "C2_C3": {x: 499, y: 363},  
+      "C1_C3_T1": {x: 499, y: 152}, 
       "C1_C3_T2": {x: 499, y: 363},
       "C2_C1": {x: 499, y: 152},
       "C3_C2": {x: 499, y: 363},
@@ -388,7 +384,6 @@ function navigateRoomToRoom(startRoom, endRoom) {
   const end = roomCoordinates[endRoom];
 
   if (start.corridor === end.corridor) {
-      // Rooms in the same corridor
       animateLine(canvasId, start.x, start.y, end.x, end.y);
   } else if (
       (start.corridor === "C1" && end.corridor === "C2") || 
@@ -396,13 +391,11 @@ function navigateRoomToRoom(startRoom, endRoom) {
       (start.corridor === "C2" && end.corridor === "C3") ||
       (start.corridor === "C3" && end.corridor === "C2")
   ) {
-      // Rooms in adjacent corridors with 1 turning point
       const turningPoint = turningPoints[`${start.corridor}_${end.corridor}`];
       animateLinet1(canvasId, start.x, start.y, turningPoint.x, turningPoint.y, end.x, end.y);
   } else if (
       (start.corridor === "C1" && end.corridor === "C3") 
   ) {
-      // Rooms in non-adjacent corridors with 2 turning points
       const turningPoint1 = turningPoints["C1_C3_T1"];
       const turningPoint2 = turningPoints["C1_C3_T2"];
       animateLinet2(canvasId, start.x, start.y, turningPoint1.x, turningPoint1.y, turningPoint2.x, turningPoint2.y, end.x, end.y);
@@ -465,7 +458,6 @@ function confirmUpstairsSelection(){
       }
   }
 
-  // Canvas code stays the same
   const canvas = document.getElementById("GFFloorCanvas");
   const context = canvas.getContext('2d');
   context.clearRect(0, 0, canvas.width, canvas.height);
@@ -474,7 +466,6 @@ function confirmUpstairsSelection(){
 }
 function navigateRoomToRoomup(startRoom,endRoom){
   const canvasId = "FFFloorCanvas";
-  // Define room coordinates
   const roomCoordinates = {
     "Kiosk 1":{x:499,y:152, corridor:"C2"},
     "Kiosk 2":{x:499,y:363, corridor:"C3"},
@@ -514,11 +505,10 @@ function navigateRoomToRoomup(startRoom,endRoom){
     "R33": {x: 167, y: 363, corridor: "C3"}
   };
 
-  // Define turning points between corridors
   const turningPoints = {
-      "C1_C2": {x: 499, y: 152},  // Turning point between Corridor 1 and Corridor 2
-      "C2_C3": {x: 499, y: 363},  // Turning point between Corridor 2 and Corridor 3
-      "C1_C3_T1": {x: 499, y: 152}, // First turning point between Corridor 1 and Corridor 3
+      "C1_C2": {x: 499, y: 152}, 
+      "C2_C3": {x: 499, y: 363}, 
+      "C1_C3_T1": {x: 499, y: 152}, 
       "C1_C3_T2": {x: 499, y: 363},
       "C2_C1": {x: 499, y: 152},
       "C3_C2": {x: 499, y: 363},
@@ -538,13 +528,11 @@ function navigateRoomToRoomup(startRoom,endRoom){
       (start.corridor === "C2" && end.corridor === "C3") ||
       (start.corridor === "C3" && end.corridor === "C2")
   ) {
-      // Rooms in adjacent corridors with 1 turning point
       const turningPoint = turningPoints[`${start.corridor}_${end.corridor}`];
       animateLinet1(canvasId, start.x, start.y, turningPoint.x, turningPoint.y, end.x, end.y);
   } else if (
       (start.corridor === "C1" && end.corridor === "C3") 
   ) {
-      // Rooms in non-adjacent corridors with 2 turning points
       const turningPoint1 = turningPoints["C1_C3_T1"];
       const turningPoint2 = turningPoints["C1_C3_T2"];
       animateLinet2(canvasId, start.x, start.y, turningPoint1.x, turningPoint1.y, turningPoint2.x, turningPoint2.y, end.x, end.y);
