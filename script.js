@@ -40,18 +40,9 @@ function animateLine(canvasId, startX, startY, endX, endY) {
   const context = canvas.getContext('2d');
   const headLength = 10;
   const angle = Math.atan2(endY - startY, endX - startX);
-  const originalWidth = 1260
-  const originalHeight = 858
-  const CurrentWidth = canvas.width
-  const CurrentHeight = canvas.height
-  const scaleX = CurrentWidth/originalWidth
-  const scaleY = CurrentHeight/originalHeight
-  startX = startX*scaleX
-  startY = startY*scaleY
-  endX = endX*scaleX
-  endY = endY*scaleY
 
-
+  let currentX = startX;
+  let currentY = startY;
   const distance = Math.hypot(endX - startX, endY - startY);
   const stepSize = 3; // Adjust step size for smoother or faster animation
   let progress = 0;
@@ -104,18 +95,6 @@ function animateLinet1(canvasId, startX, startY, tX, tY, endX, endY) {
   const canvas = document.getElementById(canvasId);
   const context = canvas.getContext('2d');
   const headLength = 10;
-  const originalWidth = 1260
-  const originalHeight = 858
-  const CurrentWidth = canvas.width
-  const CurrentHeight = canvas.height
-  const scaleX = CurrentWidth/originalWidth
-  const scaleY = CurrentHeight/originalHeight
-  startX = startX*scaleX
-  startY = startY*scaleY
-  tX = tX*scaleX
-  tY = tY*scaleY
-  endX = endX*scaleX
-  endY = endY*scaleY
 
   const totalDistance1 = Math.hypot(tX - startX, tY - startY); // Distance for the first segment
   const totalDistance2 = Math.hypot(endX - tX, endY - tY);     // Distance for the second segment
@@ -194,18 +173,6 @@ function animateLinet2(canvasId, startX, startY, t1X, t1Y, t2X, t2Y, endX, endY)
   const canvas = document.getElementById(canvasId);
   const context = canvas.getContext('2d');
   const headLength = 10;
-  const originalWidth = 1260
-  const originalHeight = 858
-  const CurrentWidth = canvas.width
-  const CurrentHeight = canvas.height
-  const scaleX = CurrentWidth/originalWidth
-  const scaleY = CurrentHeight/originalHeight
-  startX = startX*scaleX
-  startY = startY*scaleY
-  t1X,t1Y = t1X*scaleX,t1Y*scaleY
-  t2X,t2Y = t2X*scaleX,t2Y*scaleY
-  endX = endX*scaleX
-  endY = endY*scaleY
 
   const totalDistance1 = Math.hypot(t1X - startX, t1Y - startY); // Distance for the first segment
   const totalDistance2 = Math.hypot(t2X - t1X, t2Y - t1Y);       // Distance for the second segment
@@ -366,6 +333,152 @@ function navigateRoomToRoom(startRoom, endRoom) {
   
   // Define room coordinates
   const roomCoordinates = {
+    "Kiosk 1":{x:499,y:152, corridor:"C2"},
+    "Kiosk 2":{x:499,y:363, corridor:"C3"},
+    "Kiosk 3":{x:499,y:720, corridor:"C2"},
+    "R16":  {x: 464, y: 152, corridor: "C1"},
+    "R18":  {x: 420, y: 152, corridor: "C1"},
+    "R20":  {x: 376, y: 152, corridor: "C1"},
+    "R21":  {x: 330, y: 152, corridor: "C1"},
+    "R22":  {x: 285, y: 152, corridor: "C1"},
+    "R23":  {x: 241, y: 152, corridor: "C4"},
+    "R24":  {x: 195, y: 152, corridor: "C4"},
+    "R19":  {x: 376, y: 152, corridor: "C1"},
+    "R17": {x: 420, y: 152, corridor: "C1"},
+    "R15": {x: 540, y: 152, corridor: "C1"},
+    "R14": {x: 540, y: 152, corridor: "C1"},
+    "R9": {x: 499, y: 324, corridor: "C2"},
+    "R8": {x: 499, y: 401, corridor: "C2"},
+    "R6": {x: 499, y: 526, corridor: "C2"},
+    "R4": {x: 499, y: 574, corridor: "C2"},
+    "R2": {x: 499, y: 657, corridor: "C2"},
+    "R1": {x: 499, y: 720, corridor: "C2"},
+    "R3": {x: 499, y: 657, corridor: "C2"},
+    "R5": {x: 499, y: 574, corridor: "C2"},
+    "R7": {x: 499, y: 526, corridor: "C2"},
+    "R10": {x: 459, y: 363, corridor: "C3"},
+    "R11": {x: 401, y: 363, corridor: "C3"},
+    "R12": {x: 343, y: 363, corridor: "C3"},
+    "R28": {x: 887, y: 152, corridor: "C1"},
+    "R29": {x: 938, y: 152, corridor: "C1"},
+    "R13": {x: 343, y: 363, corridor: "C3"},
+    "R31": {x: 985, y: 152, corridor: "C1"},
+    "R32": {x: 985, y: 152, corridor: "C1"},
+    "R33": {x: 1066, y: 152, corridor: "C1"},
+    "R34": {x: 1066, y: 152, corridor: "C1"},
+    "R25": {x: 845, y: 152, corridor: "C1"},
+    "R26": {x: 845, y: 152, corridor: "C1"},
+    "R27": {x: 887, y: 152, corridor: "C1"},
+    "R30": {x: 938, y: 152, corridor: "C1"}
+  };
+
+  // Define turning points between corridors
+  const turningPoints = {
+      "C1_C2": {x: 499, y: 152},  // Turning point between Corridor 1 and Corridor 2
+      "C2_C3": {x: 499, y: 363},  // Turning point between Corridor 2 and Corridor 3
+      "C1_C3_T1": {x: 499, y: 152}, // First turning point between Corridor 1 and Corridor 3
+      "C1_C3_T2": {x: 499, y: 363},
+      "C2_C1": {x: 499, y: 152},
+      "C3_C2": {x: 499, y: 363},
+      "C3_C1_T1": {x: 499, y: 363},
+      "C3_C1_T2": {x: 499, y: 152}
+  };
+
+  const start = roomCoordinates[startRoom];
+  const end = roomCoordinates[endRoom];
+
+  if (start.corridor === end.corridor) {
+      // Rooms in the same corridor
+      animateLine(canvasId, start.x, start.y, end.x, end.y);
+  } else if (
+      (start.corridor === "C1" && end.corridor === "C2") || 
+      (start.corridor === "C2" && end.corridor === "C1") ||
+      (start.corridor === "C2" && end.corridor === "C3") ||
+      (start.corridor === "C3" && end.corridor === "C2")
+  ) {
+      // Rooms in adjacent corridors with 1 turning point
+      const turningPoint = turningPoints[`${start.corridor}_${end.corridor}`];
+      animateLinet1(canvasId, start.x, start.y, turningPoint.x, turningPoint.y, end.x, end.y);
+  } else if (
+      (start.corridor === "C1" && end.corridor === "C3") 
+  ) {
+      // Rooms in non-adjacent corridors with 2 turning points
+      const turningPoint1 = turningPoints["C1_C3_T1"];
+      const turningPoint2 = turningPoints["C1_C3_T2"];
+      animateLinet2(canvasId, start.x, start.y, turningPoint1.x, turningPoint1.y, turningPoint2.x, turningPoint2.y, end.x, end.y);
+  }
+    else if(
+      (start.corridor === "C3" && end.corridor === "C1")
+    ){
+      const turningPoint1 = turningPoints["C3_C1_T1"];
+      const turningPoint2 = turningPoints["C3_C1_T2"];
+      animateLinet2(canvasId, start.x, start.y, turningPoint1.x, turningPoint1.y, turningPoint2.x, turningPoint2.y, end.x, end.y);
+  }
+}
+
+
+function confirmUpstairsSelection(){
+  var selectedfloorval = document.getElementById("UD").value;
+
+  // Get all kiosk dropdowns (Kiosk 1 to Kiosk 6)
+  var kioskDropdowns = [];
+  for (let i = 1; i <= 6; i++) {
+      kioskDropdowns.push(document.getElementById("Kiosk" + i));
+  }
+
+  // Hide all kiosk dropdowns
+  for (let i = 0; i < kioskDropdowns.length; i++) {
+      kioskDropdowns[i].style.display = "none";
+  }
+
+  // Get all room dropdowns (Room 1 to Room 33)
+  var roomDropdowns = [];
+  for (let i = 1; i <= 33; i++) {
+      roomDropdowns.push(document.getElementById("Room" + i));
+  }
+
+  // // Hide all room dropdowns
+  for (let i = 0; i < roomDropdowns.length; i++) {
+      roomDropdowns[i].style.display = "none";
+  }
+
+  // Show the appropriate kiosk based on the selectedfloorval
+  if (selectedfloorval === "Kiosk 1") {
+      kioskDropdowns[0].style.display = "block";
+  } else if (selectedfloorval === "Kiosk 2") {
+      kioskDropdowns[1].style.display = "block";
+  } else if (selectedfloorval === "Kiosk 3") {
+      kioskDropdowns[2].style.display = "block";
+  } else if (selectedfloorval === "Kiosk 4") {
+      kioskDropdowns[3].style.display = "block";
+  } else if (selectedfloorval === "Kiosk 5") {
+      kioskDropdowns[4].style.display = "block";
+  } else if (selectedfloorval === "Kiosk 6") {
+      kioskDropdowns[5].style.display = "block";
+  }
+
+  // Show the appropriate room based on the selectedfloorval
+  for (let i = 1; i <= 33; i++) {
+      if (selectedfloorval === "R" + i) {
+          roomDropdowns[i - 1].style.display = "block"; // Show the corresponding room dropdown
+          break; // Exit the loop once the correct room is found
+      }
+  }
+
+  // Canvas code stays the same
+  const canvas = document.getElementById("GFFloorCanvas");
+  const context = canvas.getContext('2d');
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("result").innerHTML = "You are near: " + selectedfloorval;
+}
+function navigateRoomToRoomup(startRoom,endRoom){
+  const canvasId = "FFFloorCanvas";
+  // Define room coordinates
+  const roomCoordinates = {
+    "Kiosk 1":{x:499,y:152, corridor:"C2"},
+    "Kiosk 2":{x:499,y:363, corridor:"C3"},
+    "Kiosk 3":{x:499,y:720, corridor:"C2"},
     "R1":  {x: 464, y: 152, corridor: "C1"},
     "R2":  {x: 420, y: 152, corridor: "C1"},
     "R3":  {x: 376, y: 152, corridor: "C1"},
@@ -444,438 +557,25 @@ function navigateRoomToRoom(startRoom, endRoom) {
       animateLinet2(canvasId, start.x, start.y, turningPoint1.x, turningPoint1.y, turningPoint2.x, turningPoint2.y, end.x, end.y);
   }
 }
-
-
-function confirmUpstairsSelection(){
-  var selectedfloorval = document.getElementById("UD").value
-  var k1dropdown = document.getElementById("Kiosk1")
-  var k2dropdown = document.getElementById("Kiosk2")
-  var k3dropdown = document.getElementById("Kiosk3")
-  var k4dropdown = document.getElementById("Kiosk4")
-  var k5dropdown = document.getElementById("Kiosk5")
-  var k6dropdown = document.getElementById("Kiosk6")
-  if(selectedfloorval === "Kiosk 4"){
-    k1dropdown.style.display = "none";
-    k2dropdown.style.display = "none";
-    k3dropdown.style.display = "none";
-    k4dropdown.style.display = "block";
-    k5dropdown.style.display = "none";
-    k6dropdown.style.display = "none";
-  }
-  else if(selectedfloorval === "Kiosk 5"){
-    k1dropdown.style.display = "none";
-    k2dropdown.style.display = "none";
-    k3dropdown.style.display = "none";
-    k4dropdown.style.display = "none";
-    k5dropdown.style.display = "block";
-    k6dropdown.style.display = "none";
-  }
-  else if(selectedfloorval === "Kiosk 6"){
-    k1dropdown.style.display = "none";
-    k2dropdown.style.display = "none";
-    k3dropdown.style.display = "none";
-    k4dropdown.style.display = "none";
-    k5dropdown.style.display = "none";
-    k6dropdown.style.display = "block";
-  }
-  else{
-    k1dropdown.style.display = "none";
-    k2dropdown.style.display = "none";
-    k3dropdown.style.display = "none";
-    k4dropdown.style.display = "none";
-    k5dropdown.style.display = 'none';
-    k6dropdown.style.display = 'none';
-  }
-  const canvas = document.getElementById("FFFloorCanvas");
-  const context = canvas.getContext('2d');
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  document.getElementById("resultuni").innerHTML = ""
-  document.getElementById("result").innerHTML = "You are near: " + selectedfloorval
-}
 function confirmK1Selection(){
-  var selecteduni = document.getElementById("K1").value
-  document.getElementById("resultuni").innerHTML = "Kiosk 1 to: " + selecteduni
-  if (selecteduni === "R1" || selecteduni === "R11") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,152,464,152)
-  } else if (selecteduni === "R2" || selecteduni === "R10") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,152,420,152)
-  } else if (selecteduni === "R3" || selecteduni === "R9") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,152,376,152)
-  } else if (selecteduni === "R4") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,152,330,152)  
-  } else if (selecteduni === "R5") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,152,285,152)  
-  } else if (selecteduni === "R6") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,152,241,152)  
-  } else if (selecteduni === "R7"|| selecteduni === "R8") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,152,195,152)  
-  } else if (selecteduni === "R12" || selecteduni === "R13") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas", 499, 152, 540, 152) 
-
-  } else if (selecteduni === "R14") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas", 499, 152, 499, 324)
-
-  } else if (selecteduni === "R15") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas", 499, 152, 499, 401)
-
-  } else if (selecteduni === "R16" || selecteduni === "R23") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas", 499, 152, 499, 526)
-
-  } else if (selecteduni === "R17" || selecteduni === "R22") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas", 499, 152, 499, 574)
-
-  } else if (selecteduni === "R18" || selecteduni === "R21") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas", 499, 152, 499, 657)
-
-  } else if (selecteduni === "R19" || selecteduni === "R20") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas", 499, 152, 499, 720)
-
-  } else if (selecteduni === "R24") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499, 152,499,450)
-
-  } else if (selecteduni === "R25") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499, 152,499,363,459,363)
-
-  } else if (selecteduni === "R26") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499, 152,499,363,401,363)
-
-  } else if (selecteduni === "R27" || selecteduni === "R30") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499, 152,499,363,343,363)
-
-  } else if (selecteduni === "R28" || selecteduni === "R32") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499, 152,499,363,229,363)
-
-  } else if (selecteduni === "R29" || selecteduni === "R33") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499, 152,499,363,167,363)
-
-  } else if (selecteduni === "R31") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499, 152,499,363,289,363)   
-  }
+  var start = document.getElementById("DD").value;
+  var end = document.getElementById("K1").value;
+  document.getElementById("resultuni").innerHTML = start + " to: " + end;
+  navigateRoomToRoom(start, end);
 }
 function confirmK2Selection(){
-  var selecteduni = document.getElementById("K2").value
-  document.getElementById("resultuni").innerHTML = "Kiosk 2 to: " + selecteduni
-  if (selecteduni === "R1"|| selecteduni === "R11") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,363,499,152,464,152)
-
-  } else if (selecteduni === "R2" || selecteduni === "R10") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');  
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,363,499,152,420,152)
-
-  } else if (selecteduni === "R3" || selecteduni === "R9") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,363,499,152,376,152)
-
-  } else if (selecteduni === "R4") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,363,499,152,330,152)
-
-  } else if (selecteduni === "R5") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,363,499,152,285,152)
-
-  } else if (selecteduni === "R6") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,363,499,152,241,152)
-
-  } else if (selecteduni === "R7" || selecteduni === "R8") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,363,499,152,195,152)
-
-  } else if (selecteduni === "R12" || selecteduni === "R13") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,363,499,152,540,152)
-
-  }  else if (selecteduni === "R14") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,363,499,324)
-
-  } else if (selecteduni === "R15") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,363,499,401)
-
-  } else if (selecteduni === "R16" || selecteduni === "R23") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,363,499,526)
-
-  } else if (selecteduni === "R17" || selecteduni === "R22") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,363,499,574)
-  } else if (selecteduni === "R18"|| selecteduni === "R21") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,363,499,657)
-
-  } else if (selecteduni === "R19" || selecteduni === "R20") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,363,499,720)
-
-  } else if (selecteduni === "R24") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,363,499,450)
-
-  } else if (selecteduni === "R25") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,363,459,363)
-
-  } else if (selecteduni === "R26") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,363,401,363)
-
-  } else if (selecteduni === "R27" || selecteduni === "R30") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,363,343,363)
-
-  } else if (selecteduni === "R28" || selecteduni === "R32") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,363,229,363)
-
-  } else if (selecteduni === "R29" || selecteduni === "R33") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,363,167,363)
-
-  } else if (selecteduni === "R31") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,363,289,363)
-
-  }
+  var start = document.getElementById("DD").value;
+  var end = document.getElementById("K2").value;
+  document.getElementById("resultuni").innerHTML = start + " to: " + end;
+  navigateRoomToRoom(start, end);
 }
 function confirmK3Selection(){
-  var selecteduni = document.getElementById("K3").value
-  document.getElementById("resultuni").innerHTML = "Kiosk 3 to: " + selecteduni
-  if (selecteduni === "R1" || selecteduni === "R11") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,720,499,152,464,152)
-
-  } else if (selecteduni === "R2" || selecteduni === "R10") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,720,499,152,420,152)
-
-  } else if (selecteduni === "R3" || selecteduni === "R9") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,720,499,152,376,152)
-
-  } else if (selecteduni === "R4") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,720,499,152,330,152)
-
-  } else if (selecteduni === "R5") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,720,499,152,285,152)
-
-  } else if (selecteduni === "R6") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,720,499,152,241,152)
-
-  } else if (selecteduni === "R7" || selecteduni === "R8") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,720,499,152,195,152)
-
-  } else if (selecteduni === "R12" || selecteduni === "R13") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,720,499,152,540,152)
-
-  } else if (selecteduni === "R14") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,720,499,324)
-
-  } else if (selecteduni === "R15") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,720,499,401)
-
-  } else if (selecteduni === "R16" || selecteduni === "R23") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,720,499,526)
-
-  } else if (selecteduni === "R17" || selecteduni === "R22") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,720,499,574)
-
-  } else if (selecteduni === "R18" || selecteduni === "R21") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,720,499,657)
-
-  } else if (selecteduni === "R19" || selecteduni === "R20") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,720,499,723)
-
-  } else if (selecteduni === "R24") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLine("GFFloorCanvas",499,720,499,453)
-
-  } else if (selecteduni === "R25") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,720,499,363,459,363)
-
-  } else if (selecteduni === "R26") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,720,499,363,401,363)
-
-  } else if (selecteduni === "R27" || selecteduni === "R30") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,720,499,363,343,363)
-
-  } else if (selecteduni === "R28" || selecteduni === "R32") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,720,499,363,229,363)
-
-  } else if (selecteduni === "R29" || selecteduni === "R33") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,720,499,363,167,363)
-
-  } else if (selecteduni === "R31") {
-    const canvas = document.getElementById("GFFloorCanvas");
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    animateLinet1("GFFloorCanvas",499,720,499,363,289,363)
-
-  }
+  var start = document.getElementById("DD").value;
+  var end = document.getElementById("K3").value;
+  document.getElementById("resultuni").innerHTML = start + " to: " + end;
+  navigateRoomToRoom(start, end);
 }
+
 function confirmK4Selection(){
   var selecteduni = document.getElementById("K4").value
   document.getElementById("resultuni").innerHTML = "Kiosk 4 to: " + selecteduni
@@ -1042,19 +742,19 @@ function confirmR22Selection() {
   navigateRoomToRoom(start, end);
 }
 
-function confirmR23Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r23").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
+// function confirmR23Selection() {
+//   var start = document.getElementById("DD").value;
+//   var end = document.getElementById("r23").value;
+//   document.getElementById("resultuni").innerHTML = start + " to: " + end;
+//   navigateRoomToRoom(start, end);
+// }
 
-function confirmR24Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r24").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
+// function confirmR24Selection() {
+//   var start = document.getElementById("DD").value;
+//   var end = document.getElementById("r24").value;
+//   document.getElementById("resultuni").innerHTML = start + " to: " + end;
+//   navigateRoomToRoom(start, end);
+// }
 
 function confirmR25Selection() {
   var start = document.getElementById("DD").value;
@@ -1115,6 +815,12 @@ function confirmR32Selection() {
 function confirmR33Selection() {
   var start = document.getElementById("DD").value;
   var end = document.getElementById("r33").value;
+  document.getElementById("resultuni").innerHTML = start + " to: " + end;
+  navigateRoomToRoom(start, end);
+}
+function confirmR34Selection() {
+  var start = document.getElementById("DD").value;
+  var end = document.getElementById("r34").value;
   document.getElementById("resultuni").innerHTML = start + " to: " + end;
   navigateRoomToRoom(start, end);
 }

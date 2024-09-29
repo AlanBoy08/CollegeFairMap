@@ -94,15 +94,104 @@ button:hover {
 
 /* Responsive design */
 @media (max-width: 768px) {
+  html {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+  
   body {
-    padding: 10px;
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 10px; /* Reduced padding for smaller screens */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  h1, h2, h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px; /* Reduced margin */
+    font-size: 1.5em; /* Scaled down font size for mobile */
+  }
+  
+  select, button {
+    font-family: inherit;
+    font-size: 14px; /* Smaller font size for mobile */
+    padding: 8px 10px; /* Reduced padding */
+    margin: 8px 0; /* Smaller margin */
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
   }
 
-  select,
+  select:focus, button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.3);
+  }
+
   button {
-    width: 100%;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    border: none;
+    font-weight: bold;
+  }
+
+  button:hover {
+    background-color: var(--secondary-color);
+  }
+
+  .floor-plan-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--background-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px; /* Reduced padding for mobile */
+    margin-top: 15px; /* Reduced margin */
+    border: 2px solid var(--primary-color);
+    width: 100%; /* Make container responsive */
+  }
+
+  .floor-plan-image {
+    display: block;
+    width: 100%; /* Responsive width */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .floor-plan-canvas {
+    position: absolute;
+    top: 40px; /* Adjusted for mobile layout */
+    left: 10px; /* Adjusted for mobile layout */
+    width: 100%; /* Responsive canvas */
+    height: auto; /* Maintain aspect ratio */
+    pointer-events: none;
+  }
+
+  .kiosk-dropdown {
+    margin-top: 15px; /* Adjusted for mobile */
+  }
+
+  #result, #resultf, #resultuni {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-top: 15px;
+    padding: 8px; /* Reduced padding */
+    background-color: rgba(255, 140, 0, 0); /* Transparent background */
+    border-radius: 5px;
   }
 }
+
 
 
 
