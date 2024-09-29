@@ -274,60 +274,21 @@ function animateLinet2(canvasId, startX, startY, t1X, t1Y, t2X, t2Y, endX, endY)
 
 
 function confirmDownstairsSelection() {
-  var selectedfloorval = document.getElementById("DD").value;
-
-  // Get all kiosk dropdowns (Kiosk 1 to Kiosk 6)
-  var kioskDropdowns = [];
-  for (let i = 1; i <= 6; i++) {
-      kioskDropdowns.push(document.getElementById("Kiosk" + i));
-  }
-
-  // Hide all kiosk dropdowns
-  for (let i = 0; i < kioskDropdowns.length; i++) {
-      kioskDropdowns[i].style.display = "none";
-  }
-
-  // Get all room dropdowns (Room 1 to Room 33)
-  var roomDropdowns = [];
-  for (let i = 1; i <= 33; i++) {
-      roomDropdowns.push(document.getElementById("Room" + i));
-  }
-
-  // // Hide all room dropdowns
-  for (let i = 0; i < roomDropdowns.length; i++) {
-      roomDropdowns[i].style.display = "none";
-  }
-
-  // Show the appropriate kiosk based on the selectedfloorval
-  if (selectedfloorval === "Kiosk 1") {
-      kioskDropdowns[0].style.display = "block";
-  } else if (selectedfloorval === "Kiosk 2") {
-      kioskDropdowns[1].style.display = "block";
-  } else if (selectedfloorval === "Kiosk 3") {
-      kioskDropdowns[2].style.display = "block";
-  } else if (selectedfloorval === "Kiosk 4") {
-      kioskDropdowns[3].style.display = "block";
-  } else if (selectedfloorval === "Kiosk 5") {
-      kioskDropdowns[4].style.display = "block";
-  } else if (selectedfloorval === "Kiosk 6") {
-      kioskDropdowns[5].style.display = "block";
-  }
-
-  // Show the appropriate room based on the selectedfloorval
-  for (let i = 1; i <= 33; i++) {
-      if (selectedfloorval === "R" + i) {
-          roomDropdowns[i - 1].style.display = "block"; // Show the corresponding room dropdown
-          break; // Exit the loop once the correct room is found
-      }
-  }
+  var selectedfloorval = document.getElementById("UD").value;
+  var unidowndropdown = document.getElementById("UNI")
+  var unidropdown = document.getElementById("UP")
+  unidowndropdown.style.display = "block"
+  unidropdown.style.display = "none"
+  document.getElementById("resultuni").innerHTML = "";
+  document.getElementById("result").innerHTML = "You are near: " + selectedfloorval;
   const canvas = document.getElementById("GFFloorCanvas");
   const context = canvas.getContext('2d');
   context.clearRect(0, 0, canvas.width, canvas.height);
-  document.getElementById("resultuni").innerHTML = "";
-  document.getElementById("result").innerHTML = "You are near: " + selectedfloorval;
 }
 function navigateRoomToRoom(startRoom, endRoom) {
   const canvasId = "GFFloorCanvas";
+  
+  // Define room coordinates
   const roomCoordinates = {
     "Kiosk 1":{x:499,y:152, corridor:"C2"},
     "Kiosk 2":{x:499,y:363, corridor:"C3"},
@@ -370,9 +331,9 @@ function navigateRoomToRoom(startRoom, endRoom) {
 
   // Define turning points between corridors
   const turningPoints = {
-      "C1_C2": {x: 499, y: 152},  
-      "C2_C3": {x: 499, y: 363},  
-      "C1_C3_T1": {x: 499, y: 152}, 
+      "C1_C2": {x: 499, y: 152},  // Turning point between Corridor 1 and Corridor 2
+      "C2_C3": {x: 499, y: 363},  // Turning point between Corridor 2 and Corridor 3
+      "C1_C3_T1": {x: 499, y: 152}, // First turning point between Corridor 1 and Corridor 3
       "C1_C3_T2": {x: 499, y: 363},
       "C2_C1": {x: 499, y: 152},
       "C3_C2": {x: 499, y: 363},
@@ -384,6 +345,7 @@ function navigateRoomToRoom(startRoom, endRoom) {
   const end = roomCoordinates[endRoom];
 
   if (start.corridor === end.corridor) {
+      // Rooms in the same corridor
       animateLine(canvasId, start.x, start.y, end.x, end.y);
   } else if (
       (start.corridor === "C1" && end.corridor === "C2") || 
@@ -391,11 +353,13 @@ function navigateRoomToRoom(startRoom, endRoom) {
       (start.corridor === "C2" && end.corridor === "C3") ||
       (start.corridor === "C3" && end.corridor === "C2")
   ) {
+      // Rooms in adjacent corridors with 1 turning point
       const turningPoint = turningPoints[`${start.corridor}_${end.corridor}`];
       animateLinet1(canvasId, start.x, start.y, turningPoint.x, turningPoint.y, end.x, end.y);
   } else if (
       (start.corridor === "C1" && end.corridor === "C3") 
   ) {
+      // Rooms in non-adjacent corridors with 2 turning points
       const turningPoint1 = turningPoints["C1_C3_T1"];
       const turningPoint2 = turningPoints["C1_C3_T2"];
       animateLinet2(canvasId, start.x, start.y, turningPoint1.x, turningPoint1.y, turningPoint2.x, turningPoint2.y, end.x, end.y);
@@ -412,60 +376,19 @@ function navigateRoomToRoom(startRoom, endRoom) {
 
 function confirmUpstairsSelection(){
   var selectedfloorval = document.getElementById("UD").value;
-
-  // Get all kiosk dropdowns (Kiosk 1 to Kiosk 6)
-  var kioskDropdowns = [];
-  for (let i = 1; i <= 6; i++) {
-      kioskDropdowns.push(document.getElementById("Kiosk" + i));
-  }
-
-  // Hide all kiosk dropdowns
-  for (let i = 0; i < kioskDropdowns.length; i++) {
-      kioskDropdowns[i].style.display = "none";
-  }
-
-  // Get all room dropdowns (Room 1 to Room 33)
-  var roomDropdowns = [];
-  for (let i = 1; i <= 33; i++) {
-      roomDropdowns.push(document.getElementById("Room" + i));
-  }
-
-  // // Hide all room dropdowns
-  for (let i = 0; i < roomDropdowns.length; i++) {
-      roomDropdowns[i].style.display = "none";
-  }
-
-  // Show the appropriate kiosk based on the selectedfloorval
-  if (selectedfloorval === "Kiosk 1") {
-      kioskDropdowns[0].style.display = "block";
-  } else if (selectedfloorval === "Kiosk 2") {
-      kioskDropdowns[1].style.display = "block";
-  } else if (selectedfloorval === "Kiosk 3") {
-      kioskDropdowns[2].style.display = "block";
-  } else if (selectedfloorval === "Kiosk 4") {
-      kioskDropdowns[3].style.display = "block";
-  } else if (selectedfloorval === "Kiosk 5") {
-      kioskDropdowns[4].style.display = "block";
-  } else if (selectedfloorval === "Kiosk 6") {
-      kioskDropdowns[5].style.display = "block";
-  }
-
-  // Show the appropriate room based on the selectedfloorval
-  for (let i = 1; i <= 33; i++) {
-      if (selectedfloorval === "R" + i) {
-          roomDropdowns[i - 1].style.display = "block"; // Show the corresponding room dropdown
-          break; // Exit the loop once the correct room is found
-      }
-  }
-
-  const canvas = document.getElementById("GFFloorCanvas");
+  var unidowndropdown = document.getElementById("UNI")
+  var unidropdown = document.getElementById("UP")
+  unidowndropdown.style.display = "none"
+  unidropdown.style.display = "block"
+  document.getElementById("resultuni").innerHTML = "";
+  document.getElementById("result").innerHTML = "You are near: " + selectedfloorval;
+  const canvas = document.getElementById("FFFloorCanvas");
   const context = canvas.getContext('2d');
   context.clearRect(0, 0, canvas.width, canvas.height);
-  document.getElementById("result").innerHTML = "";
-  document.getElementById("result").innerHTML = "You are near: " + selectedfloorval;
 }
 function navigateRoomToRoomup(startRoom,endRoom){
   const canvasId = "FFFloorCanvas";
+  // Define room coordinates
   const roomCoordinates = {
     "Kiosk 1":{x:499,y:152, corridor:"C2"},
     "Kiosk 2":{x:499,y:363, corridor:"C3"},
@@ -505,10 +428,11 @@ function navigateRoomToRoomup(startRoom,endRoom){
     "R33": {x: 167, y: 363, corridor: "C3"}
   };
 
+  // Define turning points between corridors
   const turningPoints = {
-      "C1_C2": {x: 499, y: 152}, 
-      "C2_C3": {x: 499, y: 363}, 
-      "C1_C3_T1": {x: 499, y: 152}, 
+      "C1_C2": {x: 499, y: 152},  // Turning point between Corridor 1 and Corridor 2
+      "C2_C3": {x: 499, y: 363},  // Turning point between Corridor 2 and Corridor 3
+      "C1_C3_T1": {x: 499, y: 152}, // First turning point between Corridor 1 and Corridor 3
       "C1_C3_T2": {x: 499, y: 363},
       "C2_C1": {x: 499, y: 152},
       "C3_C2": {x: 499, y: 363},
@@ -528,11 +452,13 @@ function navigateRoomToRoomup(startRoom,endRoom){
       (start.corridor === "C2" && end.corridor === "C3") ||
       (start.corridor === "C3" && end.corridor === "C2")
   ) {
+      // Rooms in adjacent corridors with 1 turning point
       const turningPoint = turningPoints[`${start.corridor}_${end.corridor}`];
       animateLinet1(canvasId, start.x, start.y, turningPoint.x, turningPoint.y, end.x, end.y);
   } else if (
       (start.corridor === "C1" && end.corridor === "C3") 
   ) {
+      // Rooms in non-adjacent corridors with 2 turning points
       const turningPoint1 = turningPoints["C1_C3_T1"];
       const turningPoint2 = turningPoints["C1_C3_T2"];
       animateLinet2(canvasId, start.x, start.y, turningPoint1.x, turningPoint1.y, turningPoint2.x, turningPoint2.y, end.x, end.y);
@@ -545,271 +471,14 @@ function navigateRoomToRoomup(startRoom,endRoom){
       animateLinet2(canvasId, start.x, start.y, turningPoint1.x, turningPoint1.y, turningPoint2.x, turningPoint2.y, end.x, end.y);
   }
 }
-function confirmK1Selection(){
+function confirmUNISelection(){
   var start = document.getElementById("DD").value;
-  var end = document.getElementById("K1").value;
+  var end = document.getElementById("UNIV").value;
   document.getElementById("resultuni").innerHTML = start + " to: " + end;
   navigateRoomToRoom(start, end);
 }
-function confirmK2Selection(){
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("K2").value;
+function confirmUNIupSelection(){
+  var start = document.getElementById("UD").value;
+  var end = document.getElementById("UPuni").value;
   document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
 }
-function confirmK3Selection(){
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("K3").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmK4Selection(){
-  var selecteduni = document.getElementById("K4").value
-  document.getElementById("resultuni").innerHTML = "Kiosk 4 to: " + selecteduni
-}
-function confirmK5Selection(){
-  var selecteduni = document.getElementById("K5").value
-  document.getElementById("resultuni").innerHTML = "Kiosk 5 to: " + selecteduni
-}
-function confirmK6Selection(){
-  var selecteduni = document.getElementById("K6").value
-  document.getElementById("resultuni").innerHTML = "Kiosk 6 to: " + selecteduni
-}
-function confirmR1Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r1").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR2Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r2").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR3Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r3").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR4Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r4").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR5Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r5").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR6Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r6").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR7Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r7").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR8Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r8").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR9Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r9").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR10Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r10").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR11Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r11").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR12Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r12").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR13Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r13").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR14Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r14").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR15Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r15").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR16Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r16").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR17Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r17").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR18Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r18").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR19Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r19").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR20Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r20").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR21Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r21").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR22Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r22").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-// function confirmR23Selection() {
-//   var start = document.getElementById("DD").value;
-//   var end = document.getElementById("r23").value;
-//   document.getElementById("resultuni").innerHTML = start + " to: " + end;
-//   navigateRoomToRoom(start, end);
-// }
-
-// function confirmR24Selection() {
-//   var start = document.getElementById("DD").value;
-//   var end = document.getElementById("r24").value;
-//   document.getElementById("resultuni").innerHTML = start + " to: " + end;
-//   navigateRoomToRoom(start, end);
-// }
-
-function confirmR25Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r25").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR26Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r26").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR27Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r27").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR28Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r28").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR29Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r29").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR30Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r30").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR31Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r31").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR32Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r32").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
-function confirmR33Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r33").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-function confirmR34Selection() {
-  var start = document.getElementById("DD").value;
-  var end = document.getElementById("r34").value;
-  document.getElementById("resultuni").innerHTML = start + " to: " + end;
-  navigateRoomToRoom(start, end);
-}
-
