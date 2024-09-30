@@ -307,7 +307,7 @@ function animateLinet2(canvasId, startX, startY, t1X, t1Y, t2X, t2Y, endX, endY)
 
 
 function confirmDownstairsSelection() {
-  var selectedfloorval = document.getElementById("UD").value;
+  var selectedfloorval = document.getElementById("DD").value;
   var unidowndropdown = document.getElementById("UNI")
   var unidropdown = document.getElementById("UP")
   unidowndropdown.style.display = "block"
@@ -331,8 +331,8 @@ function navigateRoomToRoom(startRoom, endRoom) {
     "R20":  {x: 376, y: 152, corridor: "C1"},
     "R21":  {x: 330, y: 152, corridor: "C1"},
     "R22":  {x: 285, y: 152, corridor: "C1"},
-    "R23":  {x: 241, y: 152, corridor: "C4"},
-    "R24":  {x: 195, y: 152, corridor: "C4"},
+    "R23":  {x: 671, y: 152, corridor: "C1"},
+    "R24":  {x: 721, y: 152, corridor: "C1"},
     "R19":  {x: 376, y: 152, corridor: "C1"},
     "R17": {x: 420, y: 152, corridor: "C1"},
     "R15": {x: 540, y: 152, corridor: "C1"},
