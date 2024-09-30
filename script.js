@@ -40,9 +40,16 @@ function animateLine(canvasId, startX, startY, endX, endY) {
   const context = canvas.getContext('2d');
   const headLength = 10;
   const angle = Math.atan2(endY - startY, endX - startX);
-
-  let currentX = startX;
-  let currentY = startY;
+  const originalWidth = 1260
+  const originalHeight = 858
+  const CurrentWidth = canvas.width
+  const CurrentHeight = canvas.height
+  const scaleX = CurrentWidth/originalWidth
+  const scaleY = CurrentHeight/originalHeight
+  startX = startX*scaleX
+  startY = startY*scaleY
+  endX = endX*scaleX
+  endY = endY*scaleY
   const distance = Math.hypot(endX - startX, endY - startY);
   const stepSize = 3; // Adjust step size for smoother or faster animation
   let progress = 0;
@@ -64,7 +71,7 @@ function animateLine(canvasId, startX, startY, endX, endY) {
     context.moveTo(startX, startY);
     context.lineTo(newX, newY);
     context.strokeStyle = 'orange';
-    context.lineWidth = 3.5;
+    context.lineWidth = 2;
     context.stroke();
 
     // If the line is fully drawn, draw the arrowhead
@@ -95,6 +102,18 @@ function animateLinet1(canvasId, startX, startY, tX, tY, endX, endY) {
   const canvas = document.getElementById(canvasId);
   const context = canvas.getContext('2d');
   const headLength = 10;
+  const originalWidth = 1260
+  const originalHeight = 858
+  const CurrentWidth = canvas.width
+  const CurrentHeight = canvas.height
+  const scaleX = CurrentWidth/originalWidth
+  const scaleY = CurrentHeight/originalHeight
+  startX = startX*scaleX
+  startY = startY*scaleY
+  endX = endX*scaleX
+  endY = endY*scaleY
+  tX = tX*scaleX
+  tY = tY*scaleY
 
   const totalDistance1 = Math.hypot(tX - startX, tY - startY); // Distance for the first segment
   const totalDistance2 = Math.hypot(endX - tX, endY - tY);     // Distance for the second segment
@@ -119,7 +138,7 @@ function animateLinet1(canvasId, startX, startY, tX, tY, endX, endY) {
       context.moveTo(startX, startY);
       context.lineTo(currentX1, currentY1);
       context.strokeStyle = 'orange';
-      context.lineWidth = 3.5;
+      context.lineWidth = 2;;
       context.stroke();
 
       if (currentProgress >= 1) {
@@ -141,7 +160,7 @@ function animateLinet1(canvasId, startX, startY, tX, tY, endX, endY) {
 
       context.lineTo(currentX2, currentY2);
       context.strokeStyle = 'orange';
-      context.lineWidth = 3.5;
+      context.lineWidth = 2;;
       context.stroke();
 
       // If the line is fully drawn, draw the arrowhead
@@ -173,6 +192,20 @@ function animateLinet2(canvasId, startX, startY, t1X, t1Y, t2X, t2Y, endX, endY)
   const canvas = document.getElementById(canvasId);
   const context = canvas.getContext('2d');
   const headLength = 10;
+  const originalWidth = 1260
+  const originalHeight = 858
+  const CurrentWidth = canvas.width
+  const CurrentHeight = canvas.height
+  const scaleX = CurrentWidth/originalWidth
+  const scaleY = CurrentHeight/originalHeight
+  startX = startX*scaleX
+  startY = startY*scaleY
+  endX = endX*scaleX
+  endY = endY*scaleY
+  t1X = t1X*scaleX
+  t1Y = t1Y*scaleY
+  t2X = t2X*scaleX
+  t2Y = t2Y*scaleY
 
   const totalDistance1 = Math.hypot(t1X - startX, t1Y - startY); // Distance for the first segment
   const totalDistance2 = Math.hypot(t2X - t1X, t2Y - t1Y);       // Distance for the second segment
@@ -198,7 +231,7 @@ function animateLinet2(canvasId, startX, startY, t1X, t1Y, t2X, t2Y, endX, endY)
           context.moveTo(startX, startY);
           context.lineTo(currentX1, currentY1);
           context.strokeStyle = 'orange';
-          context.lineWidth = 3.5;
+          context.lineWidth = 2;;
           context.stroke();
 
           if (currentProgress >= 1) {
@@ -220,7 +253,7 @@ function animateLinet2(canvasId, startX, startY, t1X, t1Y, t2X, t2Y, endX, endY)
 
           context.lineTo(currentX2, currentY2);
           context.strokeStyle = 'orange';
-          context.lineWidth = 3.5;
+          context.lineWidth = 2;;
           context.stroke();
 
           if (currentProgress >= 1) {
@@ -243,7 +276,7 @@ function animateLinet2(canvasId, startX, startY, t1X, t1Y, t2X, t2Y, endX, endY)
 
           context.lineTo(currentX3, currentY3);
           context.strokeStyle = 'orange';
-          context.lineWidth = 3.5;
+          context.lineWidth = 2;;
           context.stroke();
 
           // If the line is fully drawn, draw the arrowhead

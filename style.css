@@ -70,15 +70,32 @@ button:hover {
 .floor-plan-container {
   position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center; /* Centers content horizontally */
+  align-items: center;     /* Centers content vertically */
   background-color: var(--background-color);
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-top: 20px;
   border: 2px solid var(--primary-color);
+  max-width: 90%; /* Set the max width of the container */
+  margin: 0 auto; /* Ensure the container is centered on the page */
 }
+/* 
+.floor-plan-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  position: relative;
+}
+
+.floor-plan-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  pointer-events: none; /* Keeps the canvas from interfering with image */
 
 
 #result,
@@ -90,6 +107,33 @@ button:hover {
   padding: 10px;
   background-color: rgba(255, 140, 0, 0);
   border-radius: 5px;
+}
+
+.floor-plan-image {
+  display: block;
+  width: 100%;
+  height: auto;
+} 
+.floor-plan-canvas {
+  position: absolute;
+  top: 85px;
+  left: 20px;
+  width: auto;
+  height: auto;
+  pointer-events: none;
+}
+
+
+.kiosk-dropdown {
+  margin-top: 20px;
+}
+
+#result,
+#resultf,
+#resultuni {
+  margin-top: 20px;
+  font-weight: 600;
+  color: #2c3e50;
 }
 
 /* Responsive design */
@@ -171,12 +215,12 @@ button:hover {
 
   .floor-plan-canvas {
     position: absolute;
-    top: 40px; /* Adjusted for mobile layout */
-    left: 10px; /* Adjusted for mobile layout */
-    width: 100%; /* Responsive canvas */
-    height: auto; /* Maintain aspect ratio */
+    top: 70px;
+    left: 14.89px;
+    width: auto;
+    height: auto;
     pointer-events: none;
-  }
+}
 
   .kiosk-dropdown {
     margin-top: 15px; /* Adjusted for mobile */
@@ -194,30 +238,3 @@ button:hover {
 
 
 
-
-.floor-plan-image {
-  display: block;
-  width: 1260px;
-  height: 858px;
-}
-
-.floor-plan-canvas {
-  position: absolute;
-  top: 85px;
-  left: 20px;
-  width: 1260px;
-  height: 858px;
-  pointer-events: none;
-}
-
-.kiosk-dropdown {
-  margin-top: 20px;
-}
-
-#result,
-#resultf,
-#resultuni {
-  margin-top: 20px;
-  font-weight: 600;
-  color: #2c3e50;
-}
