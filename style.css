@@ -116,7 +116,7 @@ button:hover {
 } 
 .floor-plan-canvas {
   position: absolute;
-  top: 82px;
+  top: 83px;
   left: 20px;
   width: auto;
   height: auto;
@@ -164,7 +164,44 @@ button:hover {
     font-size: 1.5em; /* Scaled down font size for mobile */
   }
   
-  select, button {
+  select {
+    font-family: inherit;
+    font-size: 12px; /* Smaller font size for mobile */
+    padding: 6px 8px; /* Reduced padding for mobile */
+    margin: 6px 0; /* Smaller margin */
+    border: 1.5px solid var(--primary-color); /* Slightly thinner border */
+    border-radius: 4px; /* Smoother and smaller border-radius */
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: all 0.2s ease; /* Faster transition for mobile responsiveness */
+    appearance: none; /* Remove default arrow */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 8px center; /* Adjusted arrow position */
+    background-size: 12px; /* Smaller custom arrow */
+    cursor: pointer; /* Pointer cursor for mobile users */
+  }
+  
+  select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 140, 0, 0.3); /* Slightly smaller focus shadow */
+  }
+  
+  /* Dropdown option styling */
+  select option {
+    padding: 5px; /* Scaled-down padding for options */
+    font-size: 12px; /* Ensure consistent font size in the dropdown options */
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  
+
+  button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.3);
+  }
+
+  button {
     font-family: inherit;
     font-size: 14px; /* Smaller font size for mobile */
     padding: 8px 10px; /* Reduced padding */
@@ -174,14 +211,6 @@ button:hover {
     background-color: var(--background-color);
     color: var(--text-color);
     transition: all 0.3s ease;
-  }
-
-  select:focus, button:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.3);
-  }
-
-  button {
     cursor: pointer;
     background-color: var(--primary-color);
     color: var(--background-color);
@@ -215,8 +244,8 @@ button:hover {
 
   .floor-plan-canvas {
     position: absolute;
-    top: 114.6px;
-    left: 14.89px;
+    top: 103px;
+    left: 15.5px;
     width: auto;
     height: auto;
     pointer-events: none;
