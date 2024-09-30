@@ -167,7 +167,7 @@ button:hover {
   select {
     font-family: inherit;
     font-size: 12px; /* Smaller font size for mobile */
-    padding: 6px 8px; /* Reduced padding for mobile */
+    padding: 5px 8px; /* Reduced padding for mobile */
     margin: 6px 0; /* Smaller margin */
     border: 1.5px solid var(--primary-color); /* Slightly thinner border */
     border-radius: 4px; /* Smoother and smaller border-radius */
@@ -180,6 +180,8 @@ button:hover {
     background-position: right 8px center; /* Adjusted arrow position */
     background-size: 12px; /* Smaller custom arrow */
     cursor: pointer; /* Pointer cursor for mobile users */
+    width : 100%;
+    box-sizing: border-box;
   }
   
   select:focus {
@@ -244,7 +246,7 @@ button:hover {
 
   .floor-plan-canvas {
     position: absolute;
-    top: 103px;
+    top: 101px;
     left: 15.5px;
     width: auto;
     height: auto;
