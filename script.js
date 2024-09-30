@@ -38,7 +38,7 @@ function loadCanvas(imageId, canvasId) {
 function animateLine(canvasId, startX, startY, endX, endY) {
   const canvas = document.getElementById(canvasId);
   const context = canvas.getContext('2d');
-  const headLength = 10;
+  const headLength = 4.389
   const angle = Math.atan2(endY - startY, endX - startX);
   const originalWidth = 1260
   const originalHeight = 858
@@ -101,7 +101,7 @@ function animateLine(canvasId, startX, startY, endX, endY) {
 function animateLinet1(canvasId, startX, startY, tX, tY, endX, endY) {
   const canvas = document.getElementById(canvasId);
   const context = canvas.getContext('2d');
-  const headLength = 10;
+  const headLength = 4.389
   const originalWidth = 1260
   const originalHeight = 858
   const CurrentWidth = canvas.width
@@ -191,7 +191,7 @@ function animateLinet1(canvasId, startX, startY, tX, tY, endX, endY) {
 function animateLinet2(canvasId, startX, startY, t1X, t1Y, t2X, t2Y, endX, endY) {
   const canvas = document.getElementById(canvasId);
   const context = canvas.getContext('2d');
-  const headLength = 10;
+  const headLength = 4.389
   const originalWidth = 1260
   const originalHeight = 858
   const CurrentWidth = canvas.width
