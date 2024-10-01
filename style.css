@@ -90,6 +90,7 @@ button:hover {
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
+  max-width: 90%;
 }
 
 #result,
@@ -127,6 +128,16 @@ button:hover {
   font-weight: 600;
   color: #2c3e50;
 }
+#DD{
+  text-align: center;
+}
+#parentdropdown{
+  text-align: center;
+}
+#UNIV{
+  text-align: center;
+}
+
 
 /* Responsive design */
 @media (max-width: 768px) {
@@ -226,19 +237,21 @@ button:hover {
     padding: 15px;
     margin-top: 15px;
     border: 2px solid var(--primary-color);
-    width: 100%;
     align-content: flex-start;
     flex-wrap: wrap;
     flex-direction: row-reverse;
     justify-content: center;
+    max-width: 80%;
   }
   .kiosk-dropdown {
     display: flex;
+    padding: 15px;
     margin-top: 15px;
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
+    max-width: 80%;
   } 
   
   .floor-plan-image {
@@ -263,5 +276,17 @@ button:hover {
     padding: 8px; /* Reduced padding */
     background-color: rgba(255, 140, 0, 0); /* Transparent background */
     border-radius: 5px;
+  }
+  #DD{
+    text-align: center;
+    margin: 10px 10px 10px 10px;
+    width: 80%;
+  }
+  #parentdropdown{
+    width: 35%;
+    text-align: center;
+  }
+  #UNIV{
+    text-align: center;
   }
 }
