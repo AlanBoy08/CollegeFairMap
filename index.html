@@ -12,12 +12,18 @@
 </head>
 <body>
   <h1>College Fair Navigation</h1>
-  <select id="parentdropdown">
-    <option value="">Select Floor</option>
+  <!-- <select id="attend">
+    <option value="">What do you want to attend?</option>
+    <option value="University classes">University classes</option>
+    <option value="Speaker Session">Speaker Sessions</option>
+  </select>
+  <button onclick="showFloorDropdown()">Confirm Choice?</button>
+  <select id="parentdropdown" style="display: none">
+    <option value="">Current Floor?</option>
     <option value="Downstairs Floor">Ground Floor</option>
     <option value="Upstairs Floor">First Floor</option>
-  </select>
-  <button onclick="showDaughterDropdown()">Confirm Floor?</button>
+  </select> -->
+  <button onclick="showDaughterDropdown()">Click to face your future</button>
 
   <!-- Container for Ground Floor -->
   <div id="Downstairs" style="display:none" class="floor-plan-container">
@@ -26,6 +32,7 @@
       <option value="Kiosk 1">Kiosk 1</option>
       <option value="Kiosk 2">Kiosk 2</option>
       <option value="Kiosk 3">Kiosk 3</option>
+      <option value ="The Staircase">Auditorium - Speaker Session First Floor</option>
       <option value="R1">R1 - Queen's University Belfast</option>
       <option value="R2">R2 - Glion</option>
       <option value="R3">R3 - Lane Community College</option>
@@ -74,6 +81,7 @@
         <option value="Kiosk 1">Kiosk 1</option>
         <option value="Kiosk 2">Kiosk 2</option>
         <option value="Kiosk 3">Kiosk 3</option>
+        <option value = "The Staircase">Auditorium - Speaker Session First Floor</option>
         <option value="R1">R1 - Queen's University Belfast</option>
         <option value="R2">R2 - Glion</option>
         <option value="R3">R3 - Lane Community College</option>
@@ -107,14 +115,14 @@
         <option value="R31">R31 - Symbiosis International University Dubai</option>
         <option value="R32">R32 - Wollongong in Dubai</option>
         <option value="R33">R33 - Mahindra University - Hyderabad, India</option>
-        <option value="R34">R34 - Ashoka University</option>   
+        <option value="R34">R34 - Ashoka University</option>    
       </select>
       <button onclick="confirmUNISelection()">Confirm End Point</button>
     </div>
   </div>
 
   <!-- Container for First Floor -->
-  <div id="Upstairs" style="display:none" class="floor-plan-container">
+  <!-- <div id="Upstairs" style="display:none" class="floor-plan-container">
     <select id="UD">
       <option value="">Select start location</option>
       <option value="Kiosk 4">Kiosk 4</option>
@@ -130,11 +138,11 @@
       </select>
       <button onclick="confirmUNIupSelection()">Confirm Uni</button>
     </div>
-  </div>
+  </div> -->
   
 
-  <p id = "resultf"></p>
-  <p id="result"></p>
+  <p id = "resultf">NOTE* Speaker Session in the Auditorium First floor</p>
+  <p id ="result"></p>
   <p id = "resultuni"></p>
 </body>
 </html>

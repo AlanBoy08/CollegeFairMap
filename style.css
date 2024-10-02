@@ -9,6 +9,24 @@
   /* Gold */
 }
 
+@keyframes borderAnimation {
+  0% {
+    border-color: var(--primary-color);
+  }
+  25% {
+    border-color: var(--secondary-color);
+  }
+  50% {
+    border-color: var(--hover-color);
+  }
+  75% {
+    border-color: var(--primary-color);
+  }
+  100% {
+    border-color: var(--secondary-color);
+  }
+}
+
 html {
   height: 100%;
   width: 100%;
@@ -76,14 +94,18 @@ button:hover {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-top: 20px;
-  border: 2px solid var(--primary-color);
+  border: 4px solid var(--primary-color);
   max-width: 90%;
   margin: 0 auto;
   align-content: center;
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
+
+  /* Adding the animation */
+  animation: borderAnimation 3s infinite;
 }
+
 .kiosk-dropdown {
   margin-top: 20px;
   flex-direction: column;
@@ -108,7 +130,8 @@ button:hover {
   display: block;
   width: 100%;
   height: auto;
-} 
+}
+
 .floor-plan-canvas {
   position: absolute;
   top: 141px;
@@ -118,26 +141,26 @@ button:hover {
   pointer-events: none;
 }
 
-
-
-
 #result,
 #resultf,
 #resultuni {
   margin-top: 20px;
   font-weight: 600;
   color: #2c3e50;
-}
-#DD{
-  text-align: center;
-}
-#parentdropdown{
-  text-align: center;
-}
-#UNIV{
   text-align: center;
 }
 
+#DD {
+  text-align: center;
+}
+
+#parentdropdown {
+  text-align: center;
+}
+
+#UNIV {
+  text-align: center;
+}
 
 /* Responsive design */
 @media (max-width: 768px) {
@@ -147,59 +170,59 @@ button:hover {
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
   }
-  
+
   body {
     font-family: 'Arial', sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
     line-height: 1.6;
     margin: 0;
-    padding: 10px; /* Reduced padding for smaller screens */
+    padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
   }
-  
-  h1, h2, h3 {
+
+  h1,
+  h2,
+  h3 {
     color: var(--primary-color);
-    margin-bottom: 15px; /* Reduced margin */
-    font-size: 1.5em; /* Scaled down font size for mobile */
+    margin-bottom: 15px;
+    font-size: 1.5em;
   }
-  
+
   select {
     font-family: inherit;
-    font-size: 12px; /* Smaller font size for mobile */
-    padding: 5px 8px; /* Reduced padding for mobile */
-    margin: 6px 0; /* Smaller margin */
-    border: 1.5px solid var(--primary-color); /* Slightly thinner border */
-    border-radius: 4px; /* Smoother and smaller border-radius */
+    font-size: 12px;
+    padding: 5px 8px;
+    margin: 6px 0;
+    border: 1.5px solid var(--primary-color);
+    border-radius: 4px;
     background-color: var(--background-color);
     color: var(--text-color);
-    transition: all 0.2s ease; /* Faster transition for mobile responsiveness */
-    appearance: none; /* Remove default arrow */
+    transition: all 0.2s ease;
+    appearance: none;
     background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"/></svg>');
     background-repeat: no-repeat;
-    background-position: right 8px center; /* Adjusted arrow position */
-    background-size: 12px; /* Smaller custom arrow */
-    cursor: pointer; /* Pointer cursor for mobile users */
-    width : 100%;
+    background-position: right 8px center;
+    background-size: 12px;
+    cursor: pointer;
+    width: 100%;
     box-sizing: border-box;
   }
-  
+
   select:focus {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(255, 140, 0, 0.3); /* Slightly smaller focus shadow */
+    box-shadow: 0 0 0 2px rgba(255, 140, 0, 0.3);
   }
-  
-  /* Dropdown option styling */
+
   select option {
-    padding: 5px; /* Scaled-down padding for options */
-    font-size: 12px; /* Ensure consistent font size in the dropdown options */
+    padding: 5px;
+    font-size: 12px;
     background-color: var(--background-color);
     color: var(--text-color);
   }
-  
 
   button:focus {
     outline: none;
@@ -208,9 +231,9 @@ button:hover {
 
   button {
     font-family: inherit;
-    font-size: 14px; /* Smaller font size for mobile */
-    padding: 8px 10px; /* Reduced padding */
-    margin: 8px 0; /* Smaller margin */
+    font-size: 14px;
+    padding: 8px 10px;
+    margin: 8px 0;
     border: 2px solid var(--primary-color);
     border-radius: 5px;
     background-color: var(--background-color);
@@ -236,13 +259,17 @@ button:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 15px;
     margin-top: 15px;
-    border: 2px solid var(--primary-color);
+    border: 4px solid var(--primary-color);
     align-content: flex-start;
     flex-wrap: wrap;
     flex-direction: row-reverse;
     justify-content: center;
     max-width: 80%;
+
+    /* Adding the animation */
+    animation: borderAnimation 3s infinite;
   }
+
   .kiosk-dropdown {
     display: flex;
     padding: 15px;
@@ -252,41 +279,47 @@ button:hover {
     justify-content: center;
     align-items: center;
     max-width: 80%;
-  } 
-  
+  }
+
   .floor-plan-image {
     display: block;
-    width: 100%; /* Responsive width */
-    height: auto; /* Maintain aspect ratio */
+    width: 100%;
+    height: auto;
   }
 
   .floor-plan-canvas {
     position: absolute;
-    top: 108px;
+    top: 109.25px;
     left: 15px;
     width: auto;
     height: auto;
     pointer-events: none;
-}
+  }
 
-  #result, #resultf, #resultuni {
+  #result,
+  #resultf,
+  #resultuni {
     font-weight: 600;
     color: #2c3e50;
     margin-top: 15px;
-    padding: 8px; /* Reduced padding */
-    background-color: rgba(255, 140, 0, 0); /* Transparent background */
+    padding: 8px;
+    background-color: rgba(255, 140, 0, 0);
     border-radius: 5px;
+    text-align: center;
   }
-  #DD{
+
+  #DD {
     text-align: center;
     margin: 10px 10px 10px 10px;
     width: 80%;
   }
-  #parentdropdown{
-    width: 35%;
+
+  #parentdropdown {
+    width: 60%;
     text-align: center;
   }
-  #UNIV{
+
+  #UNIV {
     text-align: center;
   }
 }
