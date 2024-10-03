@@ -29,23 +29,23 @@
   <div id="Downstairs" style="display:none" class="floor-plan-container">
     <select id="DD">
       <option value="">Select start location</option>
-      <option value="Kiosk 1">Kiosk 1</option>
-      <option value="Kiosk 2">Kiosk 2</option>
-      <option value="Kiosk 3">Kiosk 3</option>
+      <option value="Kiosk 1">Red -> Kiosk 1</option>
+      <option value="Kiosk 2">Blue -> Kiosk 2</option>
+      <option value="Kiosk 3">Green -> Kiosk 3</option>
       <option value ="The Staircase">Auditorium - Speaker Session First Floor</option>
       <option value="R1">R1 - Queen's University Belfast</option>
-      <option value="R2">R2 - Glion</option>
+      <option value="R2">R2 - Glion, Switzerland</option>
       <option value="R3">R3 - Lane Community College</option>
       <option value="R4">R4 - IOWA State University</option>
-      <option value="R5">R5 - Illinois at Chicago</option>
+      <option value="R5">R5 - University of Illinois</option>
       <option value="R6">R6 - McMaster University</option>
       <option value="R7">R7 - Munich Business School</option>
       <option value="R8">R8 - Studienkolleg MDWi and Otto Von Guericke University</option>
-      <option value="R9">R9 - Windsor</option>
+      <option value="R9">R9 - University of Windsor</option>
       <option value="R10">R10 - Toronto Metropolitan University</option>
       <option value="R11">R11 - Victoria</option>
       <option value="R12">R12 - Wilfred Laurier University</option>
-      <option value="R13">R13 - Qadri</option>
+      <option value="R13">R13 - Universities from Europe</option>
       <option value="R14">R14 - Association of Chartered Certified Accountants (ACCA)</option>
       <option value="R15">R15 - American University of Sharjah</option>
       <option value="R16">R16 - Curtin University</option>
@@ -54,9 +54,10 @@
       <option value="R19">R19 - University of Dubai</option>
       <option value="R20">R20 - Murdoch University Dubai</option>
       <option value="R21">R21 - Amity University Dubai</option>
-      <!-- <option value="R22">R22 - STUDENT RESOURCE</option> -->
-      <!-- <option value="R23">R23 - FOOD</option> -->
-      <option value="R24">R24 - CLINIC</option>
+      <option value="R22">R22 - Emirates Aviation University</option>
+      <option value="R23">R23 - Mahindra University - Hyderabad, India</option>
+      <option value="R24">R24 - Jain University</option>
+      <option value="Cli">CLINIC</option>
       <option value="R25">R25 - Middlesex University Dubai</option>
       <option value="R26">R26 - RAK Medical and Health Science University</option>
       <option value="R27">R27 - NYU Abudhabi</option>
@@ -64,9 +65,9 @@
       <option value="R29">R29 - RIT Dubai</option>
       <option value="R30">R30 - Westford University College</option>
       <option value="R31">R31 - Symbiosis International University Dubai</option>
-      <option value="R32">R32 - Wollongong in Dubai</option>
-      <option value="R33">R33 - Mahindra University - Hyderabad, India</option>
-      <option value="R34">R34 - Ashoka University</option>
+      <option value="R32">R32 - University of Wollongong</option>
+      <option value="R33">R33 - Gulf Medical University</option>
+      <option value="R34">R34 - Ashoka University</option>    
     </select>
     <button onclick="confirmDownstairsSelection()">Confirm Start Point</button>
     <canvas id="GFFloorCanvas" class="floor-plan-canvas"></canvas>
@@ -79,24 +80,24 @@
   </div>
   <div id = "UNI" style = "display:none" class="kiosk-dropdown">
     <select id = "UNIV">
-      <option value="">Select end location</option>
-      <option value="Kiosk 1">Kiosk 1</option>
-      <option value="Kiosk 2">Kiosk 2</option>
-      <option value="Kiosk 3">Kiosk 3</option>
-      <option value = "The Staircase">Auditorium - Speaker Session First Floor</option>
+      <option value="">Select start location</option>
+      <option value="Kiosk 1">Red -> Kiosk 1</option>
+      <option value="Kiosk 2">Blue -> Kiosk 2</option>
+      <option value="Kiosk 3">Green -> Kiosk 3</option>
+      <option value ="The Staircase">Auditorium - Speaker Session First Floor</option>
       <option value="R1">R1 - Queen's University Belfast</option>
-      <option value="R2">R2 - Glion</option>
+      <option value="R2">R2 - Glion, Switzerland</option>
       <option value="R3">R3 - Lane Community College</option>
       <option value="R4">R4 - IOWA State University</option>
-      <option value="R5">R5 - Illinois at Chicago</option>
+      <option value="R5">R5 - University of Illinois</option>
       <option value="R6">R6 - McMaster University</option>
       <option value="R7">R7 - Munich Business School</option>
       <option value="R8">R8 - Studienkolleg MDWi and Otto Von Guericke University</option>
-      <option value="R9">R9 - Windsor</option>
+      <option value="R9">R9 - University of Windsor</option>
       <option value="R10">R10 - Toronto Metropolitan University</option>
       <option value="R11">R11 - Victoria</option>
       <option value="R12">R12 - Wilfred Laurier University</option>
-      <option value="R13">R13 - Qadri</option>
+      <option value="R13">R13 - Universities from Europe</option>
       <option value="R14">R14 - Association of Chartered Certified Accountants (ACCA)</option>
       <option value="R15">R15 - American University of Sharjah</option>
       <option value="R16">R16 - Curtin University</option>
@@ -105,9 +106,10 @@
       <option value="R19">R19 - University of Dubai</option>
       <option value="R20">R20 - Murdoch University Dubai</option>
       <option value="R21">R21 - Amity University Dubai</option>
-      <!-- <option value="R22">R22 - STUDENT RESOURCE</option> -->
-      <!-- <option value="R23">R23 - FOOD</option> -->
-      <option value="R24">R24 - CLINIC</option>
+      <option value="R22">R22 - Emirates Aviation University</option>
+      <option value="R23">R23 - Mahindra University - Hyderabad, India</option>
+      <option value="R24">R24 - Jain University</option>
+      <option value="Cli">CLINIC</option>
       <option value="R25">R25 - Middlesex University Dubai</option>
       <option value="R26">R26 - RAK Medical and Health Science University</option>
       <option value="R27">R27 - NYU Abudhabi</option>
@@ -115,8 +117,8 @@
       <option value="R29">R29 - RIT Dubai</option>
       <option value="R30">R30 - Westford University College</option>
       <option value="R31">R31 - Symbiosis International University Dubai</option>
-      <option value="R32">R32 - Wollongong in Dubai</option>
-      <option value="R33">R33 - Mahindra University - Hyderabad, India</option>
+      <option value="R32">R32 - University of Wollongong</option>
+      <option value="R33">R33 - Gulf Medical University</option>
       <option value="R34">R34 - Ashoka University</option>    
     </select>
     <button onclick="confirmUNISelection()">Confirm End Point</button>

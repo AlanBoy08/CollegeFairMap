@@ -499,8 +499,9 @@ function navigateRoomToRoom(startRoom, endRoom) {
     "R20":  {x: 376, y: 152, corridor: "C1"},
     "R21":  {x: 330, y: 152, corridor: "C1"},
     "R22":  {x: 285, y: 152, corridor: "C1"},
-    "R23":  {x: 671, y: 152, corridor: "C1"},
-    "R24":  {x: 721, y: 152, corridor: "C1"},
+    "R23":  {x: 1112, y: 109, corridor: "C5"},
+    "R24":  {x: 1112, y: 200, corridor: "C5"},
+    "Cli":  {x: 721, y: 152, corridor: "C1"},
     "R19":  {x: 376, y: 152, corridor: "C1"},
     "R17": {x: 420, y: 152, corridor: "C1"},
     "R15": {x: 540, y: 152, corridor: "C1"},
@@ -540,11 +541,18 @@ function navigateRoomToRoom(startRoom, endRoom) {
       "C3_C2": {x: 499, y: 363},
       "C1_C4": {x: 586, y: 152},
       "C4_C1": {x: 586, y: 152},
+      "C1_C5": {x: 1112, y: 152},
+      "C5_C1": {x: 1112, y: 152},
       "C2_C4_T1":{x: 499, y: 152},
       "C2_C4_T2":{x: 586, y: 152},
+      "C2_C5_T1":{x: 499, y: 152},
+      "C2_C5_T2":{x: 1112, y: 152},
       "C3_C4_T1":{x: 499, y: 363},
       "C3_C4_T2":{x: 499, y: 152},
       "C3_C4_T3":{x: 586, y: 152},
+      "C3_C5_T1":{x: 499, y: 363},
+      "C3_C5_T2":{x: 499, y: 152},
+      "C3_C5_T3":{x: 1112, y: 152},
   };
 
   const start = roomCoordinates[startRoom];
@@ -558,13 +566,15 @@ function navigateRoomToRoom(startRoom, endRoom) {
       (start.corridor === "C2" && end.corridor === "C3") ||
       (start.corridor === "C3" && end.corridor === "C2") ||
       (start.corridor === "C4" && end.corridor === "C1") ||
-      (start.corridor === "C1" && end.corridor === "C4")
+      (start.corridor === "C1" && end.corridor === "C4") || 
+      (start.corridor === "C5" && end.corridor === "C1") ||
+      (start.corridor === "C1" && end.corridor === "C5")
   ) {
       
       const turningPoint = turningPoints[`${start.corridor}_${end.corridor}`];
       animateLinet1(canvasId, start.x, start.y, turningPoint.x, turningPoint.y, end.x, end.y);
   } else if (
-      (start.corridor === "C1" && end.corridor === "C3")  || (start.corridor === "C2" && end.corridor === "C4")
+      (start.corridor === "C1" && end.corridor === "C3")  || (start.corridor === "C2" && end.corridor === "C4") || (start.corridor === "C2" && end.corridor === "C5")
   ) {
       
       const turningPoint1 = turningPoints[`${start.corridor}_${end.corridor}_T1`];
@@ -572,14 +582,14 @@ function navigateRoomToRoom(startRoom, endRoom) {
       animateLinet2(canvasId, start.x, start.y, turningPoint1.x, turningPoint1.y, turningPoint2.x, turningPoint2.y, end.x, end.y);
   }
     else if(
-      (start.corridor === "C3" && end.corridor === "C1") ||  (start.corridor === "C4" && end.corridor === "C2")
+      (start.corridor === "C3" && end.corridor === "C1") ||  (start.corridor === "C4" && end.corridor === "C2") ||  (start.corridor === "C5" && end.corridor === "C2")
     ){
       const turningPoint1 = turningPoints[`${end.corridor}_${start.corridor}_T2`];
       const turningPoint2 = turningPoints[`${end.corridor}_${start.corridor}_T1`];
       animateLinet2(canvasId, start.x, start.y, turningPoint1.x, turningPoint1.y, turningPoint2.x, turningPoint2.y, end.x, end.y);
   } 
     else if(
-      (start.corridor === "C3" && end.corridor === "C4")
+      (start.corridor === "C3" && end.corridor === "C4") || (start.corridor === "C3" && end.corridor === "C5")
     ){
       const turningPoint1 = turningPoints[`${start.corridor}_${end.corridor}_T1`];
       const turningPoint2 = turningPoints[`${start.corridor}_${end.corridor}_T2`];
@@ -587,7 +597,7 @@ function navigateRoomToRoom(startRoom, endRoom) {
       animateLinet3(canvasId, start.x, start.y, turningPoint1.x, turningPoint1.y, turningPoint2.x, turningPoint2.y, turningPoint3.x, turningPoint3.y, end.x, end.y);
   }
   else if(
-    (start.corridor === "C4" && end.corridor === "C3")
+    (start.corridor === "C4" && end.corridor === "C3") || (start.corridor === "C5" && end.corridor === "C3")
     ){
       const turningPoint1 = turningPoints[`${end.corridor}_${start.corridor}_T3`];
       const turningPoint2 = turningPoints[`${end.corridor}_${start.corridor}_T2`];
