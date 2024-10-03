@@ -557,7 +557,8 @@ function navigateRoomToRoom(startRoom, endRoom) {
       (start.corridor === "C2" && end.corridor === "C1") ||
       (start.corridor === "C2" && end.corridor === "C3") ||
       (start.corridor === "C3" && end.corridor === "C2") ||
-      (start.corridor === "C4" && end.corridor === "C1") 
+      (start.corridor === "C4" && end.corridor === "C1") ||
+      (start.corridor === "C1" && end.corridor === "C4")
   ) {
       
       const turningPoint = turningPoints[`${start.corridor}_${end.corridor}`];
