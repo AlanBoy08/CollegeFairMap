@@ -553,6 +553,9 @@ function navigateRoomToRoom(startRoom, endRoom) {
       "C3_C5_T1":{x: 499, y: 363},
       "C3_C5_T2":{x: 499, y: 152},
       "C3_C5_T3":{x: 1112, y: 152},
+      "C4_C5_T1":{x: 586, y: 152},
+      "C4_C5_T2":{x: 1112, y: 152},
+
   };
 
   const start = roomCoordinates[startRoom];
@@ -574,7 +577,7 @@ function navigateRoomToRoom(startRoom, endRoom) {
       const turningPoint = turningPoints[`${start.corridor}_${end.corridor}`];
       animateLinet1(canvasId, start.x, start.y, turningPoint.x, turningPoint.y, end.x, end.y);
   } else if (
-      (start.corridor === "C1" && end.corridor === "C3")  || (start.corridor === "C2" && end.corridor === "C4") || (start.corridor === "C2" && end.corridor === "C5")
+      (start.corridor === "C1" && end.corridor === "C3")  || (start.corridor === "C2" && end.corridor === "C4") || (start.corridor === "C2" && end.corridor === "C5") || (start.corridor === "C4" && end.corridor === "C5")
   ) {
       
       const turningPoint1 = turningPoints[`${start.corridor}_${end.corridor}_T1`];
@@ -582,7 +585,7 @@ function navigateRoomToRoom(startRoom, endRoom) {
       animateLinet2(canvasId, start.x, start.y, turningPoint1.x, turningPoint1.y, turningPoint2.x, turningPoint2.y, end.x, end.y);
   }
     else if(
-      (start.corridor === "C3" && end.corridor === "C1") ||  (start.corridor === "C4" && end.corridor === "C2") ||  (start.corridor === "C5" && end.corridor === "C2")
+      (start.corridor === "C3" && end.corridor === "C1") ||  (start.corridor === "C4" && end.corridor === "C2") ||  (start.corridor === "C5" && end.corridor === "C2") || (start.corridor === "C5" && end.corridor === "C4")
     ){
       const turningPoint1 = turningPoints[`${end.corridor}_${start.corridor}_T2`];
       const turningPoint2 = turningPoints[`${end.corridor}_${start.corridor}_T1`];
