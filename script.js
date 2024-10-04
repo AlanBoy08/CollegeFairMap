@@ -609,7 +609,6 @@ function navigateRoomToRoom(startRoom, endRoom) {
     }
 }
 
-
 // function confirmUpstairsSelection(){
 //   var selectedfloorval = document.getElementById("UD").value;
 //   var unidowndropdown = document.getElementById("UNI")
