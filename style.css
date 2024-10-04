@@ -9,24 +9,6 @@
   /* Gold */
 }
 
-@keyframes borderAnimation {
-  0% {
-    border-color: var(--primary-color);
-  }
-  25% {
-    border-color: var(--secondary-color);
-  }
-  50% {
-    border-color: var(--hover-color);
-  }
-  75% {
-    border-color: var(--primary-color);
-  }
-  100% {
-    border-color: var(--secondary-color);
-  }
-}
-
 html {
   height: 100%;
   width: 100%;
@@ -94,16 +76,40 @@ button:hover {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-top: 20px;
-  border: 4px solid var(--primary-color);
   max-width: 90%;
   margin: 0 auto;
   align-content: center;
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
-
-  /* Adding the animation */
-  animation: borderAnimation 3s infinite;
+}
+@property --angle{
+  syntax:   "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.floor-plan-container::after,.floor-plan-container::before{
+  content:  '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image:conic-gradient(from var(--angle),transparent 70%,var(--primary-color),var(--secondary-color),var(--primary-color));
+  z-index: -1;
+  padding: 3px;
+  border-radius: 10px;
+  animation: 2.5s spin linear infinite;
+}
+.floor-plan-container::before{
+  filter:blur(1.5rem);
+  opacity: 0.5;
+}
+@keyframes spin{
+  from{
+    --angle: 0deg;
+  }
+  to{
+    --angle: 360deg;
+  }
 }
 
 .kiosk-dropdown {
@@ -197,7 +203,6 @@ button:hover {
     font-size: 12px;
     padding: 5px 8px;
     margin: 6px 0;
-    border: 1.5px solid var(--primary-color);
     border-radius: 4px;
     background-color: var(--background-color);
     color: var(--text-color);
@@ -259,16 +264,42 @@ button:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 15px;
     margin-top: 15px;
-    border: 4px solid var(--primary-color);
     align-content: flex-start;
     flex-wrap: wrap;
     flex-direction: row-reverse;
     justify-content: center;
     max-width: 80%;
 
-    /* Adding the animation */
-    animation: borderAnimation 3s infinite;
   }
+  @property --angle{
+    syntax:   "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+  .floor-plan-container::after,.floor-plan-container::before{
+    content:  '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image:conic-gradient(from var(--angle),transparent 70%,var(--primary-color),var(--secondary-color),var(--primary-color));
+    z-index: -1;
+    padding: 3px;
+    border-radius: 10px;
+    animation: 2.5s spin linear infinite;
+  }
+  .floor-plan-container::before{
+    filter:blur(1.5rem);
+    opacity: 0.5;
+  }
+  @keyframes spin{
+    from{
+      --angle: 0deg;
+    }
+    to{
+      --angle: 360deg;
+    }
+  }
+  
 
   .kiosk-dropdown {
     display: flex;
