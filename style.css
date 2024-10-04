@@ -254,7 +254,6 @@ button:hover {
   button:hover {
     background-color: var(--secondary-color);
   }
-
   .floor-plan-container {
     position: relative;
     display: flex;
