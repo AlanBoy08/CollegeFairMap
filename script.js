@@ -529,6 +529,7 @@ function navigateRoomToRoom(startRoom, endRoom) {
     "R26": {x: 845, y: 152, corridor: "C1"},
     "R27": {x: 887, y: 152, corridor: "C1"},
     "R30": {x: 938, y: 152, corridor: "C1"},
+    "R35": {x: 672, y: 152, corridor: "C1"},
     "The Staircase":{x: 586, y: 133, corridor: "C4"}
   };
 
