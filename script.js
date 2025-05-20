@@ -474,6 +474,225 @@ function animateLinet3(canvasId, startX, startY, t1X, t1Y, t2X, t2Y, t3X, t3Y, e
   requestAnimationFrame(draw); // Start animation
 }
 
+function animateLineT4(canvasId, startX, startY, t1X, t1Y, t2X, t2Y, t3X, t3Y, t4X, t4Y, endX, endY) {
+  const canvas = document.getElementById(canvasId);
+  const context = canvas.getContext('2d');
+  const headLength = 4.389;
+  const originalWidth = 1260;
+  const originalHeight = 858;
+  const scaleX = canvas.width / originalWidth;
+  const scaleY = canvas.height / originalHeight;
+
+  [startX, t1X, t2X, t3X, t4X, endX] = [startX, t1X, t2X, t3X, t4X, endX].map(x => x * scaleX);
+  [startY, t1Y, t2Y, t3Y, t4Y, endY] = [startY, t1Y, t2Y, t3Y, t4Y, endY].map(y => y * scaleY);
+
+  const points = [[startX, startY], [t1X, t1Y], [t2X, t2Y], [t3X, t3Y], [t4X, t4Y], [endX, endY]];
+  const distances = [];
+  for (let i = 0; i < points.length - 1; i++) {
+    distances.push(Math.hypot(points[i + 1][0] - points[i][0], points[i + 1][1] - points[i][1]));
+  }
+
+  let progress = 0;
+  let phase = 1;
+  const stepSize = 3;
+
+  function draw() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    let drawnPoints = [points[0]];
+
+    for (let i = 1; i < phase; i++) {
+      drawnPoints.push(points[i]);
+    }
+
+    progress += stepSize;
+    const currDist = distances[phase - 1];
+    const pct = Math.min(progress / currDist, 1);
+    const [x1, y1] = points[phase - 1];
+    const [x2, y2] = points[phase];
+    drawnPoints.push([
+      x1 + (x2 - x1) * pct,
+      y1 + (y2 - y1) * pct
+    ]);
+
+    context.beginPath();
+    context.moveTo(drawnPoints[0][0], drawnPoints[0][1]);
+    for (let i = 1; i < drawnPoints.length; i++) {
+      context.lineTo(drawnPoints[i][0], drawnPoints[i][1]);
+    }
+    context.strokeStyle = 'orange';
+    context.lineWidth = 2;
+    context.stroke();
+
+    if (pct >= 1) {
+      phase++;
+      progress = 0;
+    }
+
+    if (phase <= 5) {
+      requestAnimationFrame(draw);
+    } else if (pct >= 1) {
+      const angle = Math.atan2(endY - t4Y, endX - t4X);
+      context.beginPath();
+      context.moveTo(endX, endY);
+      context.lineTo(endX - headLength * Math.cos(angle - Math.PI / 6), endY - headLength * Math.sin(angle - Math.PI / 6));
+      context.lineTo(endX - headLength * Math.cos(angle + Math.PI / 6), endY - headLength * Math.sin(angle + Math.PI / 6));
+      context.closePath();
+      context.strokeStyle = 'orange';
+      context.stroke();
+      context.fillStyle = 'black';
+      context.fill();
+    }
+  }
+
+  requestAnimationFrame(draw);
+}
+
+function animateLineT5(canvasId, startX, startY, t1X, t1Y, t2X, t2Y, t3X, t3Y, t4X, t4Y, t5X, t5Y, endX, endY) {
+  const canvas = document.getElementById(canvasId);
+  const context = canvas.getContext('2d');
+  const headLength = 4.389;
+  const originalWidth = 1260;
+  const originalHeight = 858;
+  const scaleX = canvas.width / originalWidth;
+  const scaleY = canvas.height / originalHeight;
+
+  [startX, t1X, t2X, t3X, t4X, t5X, endX] = [startX, t1X, t2X, t3X, t4X, t5X, endX].map(x => x * scaleX);
+  [startY, t1Y, t2Y, t3Y, t4Y, t5Y, endY] = [startY, t1Y, t2Y, t3Y, t4Y, t5Y, endY].map(y => y * scaleY);
+
+  const points = [[startX, startY], [t1X, t1Y], [t2X, t2Y], [t3X, t3Y], [t4X, t4Y], [t5X, t5Y], [endX, endY]];
+  const distances = [];
+  for (let i = 0; i < points.length - 1; i++) {
+    distances.push(Math.hypot(points[i + 1][0] - points[i][0], points[i + 1][1] - points[i][1]));
+  }
+
+  let progress = 0;
+  let phase = 1;
+  const stepSize = 3;
+
+  function draw() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    let drawnPoints = [points[0]];
+
+    for (let i = 1; i < phase; i++) {
+      drawnPoints.push(points[i]);
+    }
+
+    progress += stepSize;
+    const currDist = distances[phase - 1];
+    const pct = Math.min(progress / currDist, 1);
+    const [x1, y1] = points[phase - 1];
+    const [x2, y2] = points[phase];
+    drawnPoints.push([
+      x1 + (x2 - x1) * pct,
+      y1 + (y2 - y1) * pct
+    ]);
+
+    context.beginPath();
+    context.moveTo(drawnPoints[0][0], drawnPoints[0][1]);
+    for (let i = 1; i < drawnPoints.length; i++) {
+      context.lineTo(drawnPoints[i][0], drawnPoints[i][1]);
+    }
+    context.strokeStyle = 'orange';
+    context.lineWidth = 2;
+    context.stroke();
+
+    if (pct >= 1) {
+      phase++;
+      progress = 0;
+    }
+
+    if (phase <= 6) {
+      requestAnimationFrame(draw);
+    } else if (pct >= 1) {
+      const angle = Math.atan2(endY - t5Y, endX - t5X);
+      context.beginPath();
+      context.moveTo(endX, endY);
+      context.lineTo(endX - headLength * Math.cos(angle - Math.PI / 6), endY - headLength * Math.sin(angle - Math.PI / 6));
+      context.lineTo(endX - headLength * Math.cos(angle + Math.PI / 6), endY - headLength * Math.sin(angle + Math.PI / 6));
+      context.closePath();
+      context.strokeStyle = 'orange';
+      context.stroke();
+      context.fillStyle = 'black';
+      context.fill();
+    }
+  }
+
+  requestAnimationFrame(draw);
+}
+
+
+function animateLineT6(canvasId, startX, startY, t1X, t1Y, t2X, t2Y, t3X, t3Y, t4X, t4Y, t5X, t5Y, t6X, t6Y, endX, endY) {
+  const canvas = document.getElementById(canvasId);
+  const context = canvas.getContext('2d');
+  const headLength = 4.389;
+  const originalWidth = 1260;
+  const originalHeight = 858;
+  const scaleX = canvas.width / originalWidth;
+  const scaleY = canvas.height / originalHeight;
+
+  [startX, t1X, t2X, t3X, t4X, t5X, t6X, endX] = [startX, t1X, t2X, t3X, t4X, t5X, t6X, endX].map(x => x * scaleX);
+  [startY, t1Y, t2Y, t3Y, t4Y, t5Y, t6Y, endY] = [startY, t1Y, t2Y, t3Y, t4Y, t5Y, t6Y, endY].map(y => y * scaleY);
+
+  const points = [[startX, startY], [t1X, t1Y], [t2X, t2Y], [t3X, t3Y], [t4X, t4Y], [t5X, t5Y], [t6X, t6Y], [endX, endY]];
+  const distances = [];
+  for (let i = 0; i < points.length - 1; i++) {
+    distances.push(Math.hypot(points[i + 1][0] - points[i][0], points[i + 1][1] - points[i][1]));
+  }
+
+  let progress = 0;
+  let phase = 1;
+  const stepSize = 3;
+
+  function draw() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    let drawnPoints = [points[0]];
+
+    for (let i = 1; i < phase; i++) {
+      drawnPoints.push(points[i]);
+    }
+
+    progress += stepSize;
+    const currDist = distances[phase - 1];
+    const pct = Math.min(progress / currDist, 1);
+    const [x1, y1] = points[phase - 1];
+    const [x2, y2] = points[phase];
+    drawnPoints.push([
+      x1 + (x2 - x1) * pct,
+      y1 + (y2 - y1) * pct
+    ]);
+
+    context.beginPath();
+    context.moveTo(drawnPoints[0][0], drawnPoints[0][1]);
+    for (let i = 1; i < drawnPoints.length; i++) {
+      context.lineTo(drawnPoints[i][0], drawnPoints[i][1]);
+    }
+    context.strokeStyle = 'orange';
+    context.lineWidth = 2;
+    context.stroke();
+
+    if (pct >= 1) {
+      phase++;
+      progress = 0;
+    }
+
+    if (phase <= 7) {
+      requestAnimationFrame(draw);
+    } else if (pct >= 1) {
+      const angle = Math.atan2(endY - t6Y, endX - t6X);
+      context.beginPath();
+      context.moveTo(endX, endY);
+      context.lineTo(endX - headLength * Math.cos(angle - Math.PI / 6), endY - headLength * Math.sin(angle - Math.PI / 6));
+      context.lineTo(endX - headLength * Math.cos(angle + Math.PI / 6), endY - headLength * Math.sin(angle + Math.PI / 6));
+      context.closePath();
+      context.strokeStyle = 'orange';
+      context.stroke();
+      context.fillStyle = 'black';
+      context.fill();
+    }
+  }
+
+  requestAnimationFrame(draw);
+}
 
 function confirmDownstairsSelection() {
   var selectedfloorval = document.getElementById("DD").value;
@@ -491,72 +710,262 @@ function navigateRoomToRoom(startRoom, endRoom) {
   const canvasId = "GFFloorCanvas";
 
   const roomCoordinates = {
-    "Kiosk 1":{x:499,y:152, corridor:"C2"},
-    "Kiosk 2":{x:499,y:363, corridor:"C3"},
-    "Kiosk 3":{x:499,y:720, corridor:"C2"},
-    "R16":  {x: 464, y: 152, corridor: "C1"},
-    "R18":  {x: 420, y: 152, corridor: "C1"},
-    "R20":  {x: 376, y: 152, corridor: "C1"},
-    "R21":  {x: 330, y: 152, corridor: "C1"},
-    "R22":  {x: 285, y: 152, corridor: "C1"},
-    "R23":  {x: 1112, y: 109, corridor: "C5"},
-    "R24":  {x: 1112, y: 200, corridor: "C5"},
-    "Cli":  {x: 721, y: 152, corridor: "C1"},
-    "R19":  {x: 376, y: 152, corridor: "C1"},
-    "R17": {x: 420, y: 152, corridor: "C1"},
-    "R15": {x: 540, y: 152, corridor: "C1"},
-    "R14": {x: 540, y: 152, corridor: "C1"},
-    "R9": {x: 499, y: 324, corridor: "C2"},
-    "R8": {x: 499, y: 401, corridor: "C2"},
-    "R6": {x: 499, y: 526, corridor: "C2"},
-    "R4": {x: 499, y: 574, corridor: "C2"},
-    "R2": {x: 499, y: 657, corridor: "C2"},
-    "R1": {x: 499, y: 720, corridor: "C2"},
-    "R3": {x: 499, y: 657, corridor: "C2"},
-    "R5": {x: 499, y: 574, corridor: "C2"},
-    "R7": {x: 499, y: 526, corridor: "C2"},
-    "R10": {x: 459, y: 363, corridor: "C3"},
-    "R11": {x: 401, y: 363, corridor: "C3"},
-    "R12": {x: 343, y: 363, corridor: "C3"},
-    "R28": {x: 887, y: 152, corridor: "C1"},
-    "R29": {x: 938, y: 152, corridor: "C1"},
-    "R13": {x: 343, y: 363, corridor: "C3"},
-    "R31": {x: 985, y: 152, corridor: "C1"},
-    "R32": {x: 985, y: 152, corridor: "C1"},
-    "R33": {x: 1066, y: 152, corridor: "C1"},
-    "R34": {x: 1066, y: 152, corridor: "C1"},
-    "R25": {x: 845, y: 152, corridor: "C1"},
-    "R26": {x: 845, y: 152, corridor: "C1"},
-    "R27": {x: 887, y: 152, corridor: "C1"},
-    "R30": {x: 938, y: 152, corridor: "C1"},
-    "R35": {x: 672, y: 152, corridor: "C1"},
-    "R36": {x: 720, y: 152, corridor: "C1"},
-    "The Staircase":{x: 586, y: 133, corridor: "C4"}
+    "R1":  {x: 1083, y: 286, corridor: "C1"},
+    "R2":  {x: 1083, y: 286, corridor: "C1"},
+    "R3":  {x: 1007, y: 286, corridor: "C1"},
+    "R4":  {x: 1007, y: 286, corridor: "C1"},
+    "R5":  {x: 957, y: 286, corridor: "C1"},
+    "R6":  {x: 957, y: 286, corridor: "C1"},
+    "R7":  {x: 911, y: 286, corridor: "C1"},
+    "R8":  {x: 911, y: 286, corridor: "C1"},
+    "R9":  {x: 863, y: 286, corridor: "C1"},
+    "R10":  {x: 863, y: 286, corridor: "C1"},
+    "R11":  {x: 804, y: 286, corridor: "C1"},
+    "R12":  {x: 718, y: 286, corridor: "C1"},
+    "R13":  {x: 718, y: 286, corridor: "C1"},
+    "R14":  {x: 688, y: 286, corridor: "C1"},
+    "R15":  {x: 630, y: 286, corridor: "C1"},
+    "R16":  {x: 706, y: 286, corridor: "C1"},
+    "R17":  {x: 554, y: 286, corridor: "C1"},
+    "R18":  {x: 300, y: 286, corridor: "C1"},
+    "R19":  {x: 346, y: 286, corridor: "C1"},
+    "R20":  {x: 392, y: 286, corridor: "C1"},
+    "R21":  {x: 392, y: 286, corridor: "C1"},
+    "R22":  {x: 436, y: 286, corridor: "C1"},
+    "R23":  {x: 436, y: 286, corridor: "C1"},
+    "R24":  {x: 466, y: 286, corridor: "C1"},
+    "R25":  {x: 554, y: 286, corridor: "C1"},
+    "R26":  {x: 466, y: 286, corridor: "C1"},
+    "R27":  {x: 300, y: 286, corridor: "C1"},
+    "R28":  {x: 257, y: 286, corridor: "C1"},
+    "R29":  {x: 206, y: 286, corridor: "C1"},
+    "R30":  {x: 206, y: 286, corridor: "C1"},
+    "R31":  {x: 1120, y: 260, corridor: "C5"},
+    "R32":  {x: 1120, y: 317, corridor: "C5"},
+    "R33":  {x: 1120, y: 189, corridor: "C5"},
+    "R34":  {x: 1120, y: 163, corridor: "C5"},
+    "R35":  {x: 1120, y: 163, corridor: "C5"},
+    "R36":  {x: 1120, y: 140, corridor: "C5"},
+    "R37":  {x: 1120, y: 140, corridor: "C5"},
+    "R38":  {x: 1120, y: 110, corridor: "C5"},
+    "R39":  {x: 1120, y: 110, corridor: "C5"},
+    "R40":  {x: 1120, y: 73, corridor: "C5"},
+    "R41":  {x: 1120, y: 73, corridor: "C5"},
+    "R42":  {x: 1120, y: 42, corridor: "C5"},
+    "R43":  {x: 1120, y: 452, corridor: "C5"},
+    "R44":  {x: 1120, y: 452, corridor: "C5"},
+    "R45":  {x: 1120, y: 493, corridor: "C5"},
+    "R46":  {x: 1120, y: 493, corridor: "C5"},
+    "R47":  {x: 1120, y: 539, corridor: "C5"},
+    "R48":  {x: 1120, y: 539, corridor: "C5"},
+    "R49":  {x: 1120, y: 607, corridor: "C5"},
+    "R50":  {x: 1120, y: 607, corridor: "C5"},
+    "R51":  {x: 1120, y: 648, corridor: "C5"},
+    "R52":  {x: 1120, y: 648, corridor: "C5"},
+    "R53":  {x: 1120, y: 707, corridor: "C5"},
+    "R54":  {x: 1120, y: 707, corridor: "C5"},
+    "R55":  {x: 1120, y: 750, corridor: "C5"},
+    "R56":  {x: 1120, y: 750, corridor: "C5"},
+    "R57":  {x: 524, y: 430, corridor: "C2"},
+    "R58":  {x: 524, y: 499, corridor: "C2"},
+    "R59":  {x: 524, y: 499, corridor: "C2"},
+    "R60":  {x: 524, y: 540, corridor: "C2"},
+    "R61":  {x: 524, y: 540, corridor: "C2"},
+    "R62":  {x: 524, y: 605, corridor: "C2"},
+    "R63":  {x: 524, y: 605, corridor: "C2"},
+    "R64":  {x: 524, y: 644, corridor: "C2"},
+    "R65":  {x: 524, y: 644, corridor: "C2"},
+    "R66":  {x: 524, y: 710, corridor: "C2"},
+    "R67":  {x: 524, y: 710, corridor: "C2"},
+    "R68":  {x: 524, y: 746, corridor: "C2"},
+    "R69":  {x: 524, y: 746, corridor: "C2"},
+    "R70":  {x: 488, y: 456, corridor: "C3"},
+    "R71":  {x: 442, y: 456, corridor: "C3"},
+    "R72":  {x: 398, y: 456, corridor: "C3"},
+    "R73":  {x: 398, y: 456, corridor: "C3"},
+    "R74":  {x: 356, y: 456, corridor: "C3"},
+    "R75":  {x: 306, y: 456, corridor: "C3"},
+    "R76":  {x: 306, y: 456, corridor: "C3"},
+    "R77":  {x: 261, y: 456, corridor: "C3"},
+    "R78":  {x: 261, y: 456, corridor: "C3"},
+    "R79": {x: 455, y: 596, corridor: "C6"},
+    "R80": {x: 455, y: 682, corridor: "C6"},
+    "R81": {x: 366, y: 674, corridor: "C7"},
+    "R82": {x: 366, y: 719, corridor: "C7"},
+    "R83": {x: 336, y: 745, corridor: "C8"},
+    "R84": {x: 180, y: 745, corridor: "C8"},
+    "R85": {x: 145, y: 745, corridor: "C9"},
+    "R86": {x: 145, y: 720, corridor: "C9"},
+    "R87": {x: 145, y: 720, corridor: "C9"},
+    "R88": {x: 145, y: 675, corridor: "C9"},
+    "R89": {x: 145, y: 646, corridor: "C9"},
   };
 
   const turningPoints = {
-      "C1_C2": {x: 499, y: 152},  
-      "C2_C3": {x: 499, y: 363},  
-      "C1_C3_T1": {x: 499, y: 152}, 
-      "C1_C3_T2": {x: 499, y: 363},
-      "C2_C1": {x: 499, y: 152},
-      "C3_C2": {x: 499, y: 363},
+      "C1_C2": {x: 515, y: 286},  
+      "C2_C3": {x: 524, y: 455},  
+      "C1_C3_T1": {x: 515, y: 286}, 
+      "C1_C3_T2": {x: 524, y: 455},
+      "C2_C1": {x: 515, y: 286},
+      "C3_C2": {x: 524, y: 455},
       "C1_C4": {x: 586, y: 152},
       "C4_C1": {x: 586, y: 152},
-      "C1_C5": {x: 1112, y: 152},
-      "C5_C1": {x: 1112, y: 152},
+      "C1_C5": {x: 1120, y: 286},
+      "C5_C1": {x: 1120, y: 286},
       "C2_C4_T1":{x: 499, y: 152},
       "C2_C4_T2":{x: 586, y: 152},
-      "C2_C5_T1":{x: 499, y: 152},
-      "C2_C5_T2":{x: 1112, y: 152},
+      "C2_C5_T1":{x: 515, y: 286},
+      "C2_C5_T2":{x: 1120, y: 286},
       "C3_C4_T1":{x: 499, y: 363},
       "C3_C4_T2":{x: 499, y: 152},
       "C3_C4_T3":{x: 586, y: 152},
-      "C3_C5_T1":{x: 499, y: 363},
-      "C3_C5_T2":{x: 499, y: 152},
-      "C3_C5_T3":{x: 1112, y: 152},
+      "C3_C5_T1":{x: 524, y: 455},
+      "C3_C5_T2":{x: 515, y: 286},
+      "C3_C5_T3":{x: 1120, y: 286},
       "C4_C5_T1":{x: 586, y: 152},
       "C4_C5_T2":{x: 1112, y: 152},
+      "C1_C6_T1":{x: 515, y: 286},
+      "C1_C6_T2":{x: 524, y: 455},
+      "C1_C6_T3":{x: 453, y: 455 },
+      "C6_C1_T1":{x: 453, y: 455 },
+      "C6_C1_T2":{x: 524, y: 455},
+      "C6_C1_T3":{x: 515, y: 286},
+      "C2_C6_T1":{x: 524 , y: 775},
+      "C2_C6_T2":{x: 455, y: 775 },
+      "C6_C2_T2":{x: 524 , y: 775},
+      "C6_C2_T1":{x: 455, y: 775 },
+      "C3_C6":{x: 453 , y: 455},
+      "C6_C3":{x: 453 , y: 455},
+      "C7_C6_T1":{x:366, y:775},
+      "C7_C6_T2":{x: 455, y: 775},
+      "C6_C7_T1":{x: 455, y: 775},
+      "C6_C7_T2":{x:366, y:775},
+      "C8_C6_T1":{x:366, y:740},
+      "C8_C6_T2":{x:366, y:775},
+      "C8_C6_T3":{x: 455, y: 775},
+      "C6_C8_T1":{x: 455, y: 775},
+      "C6_C8_T2":{x:366, y:775},
+      "C6_C8_T3":{x:366, y:740},
+      "C9_C6_T1":{x:145, y:744},
+      "C9_C6_T2":{x:366, y:740},
+      "C9_C6_T3":{x:366, y:775},
+      "C9_C6_T4":{x: 455, y: 775},
+      "C6_C9_T4":{x:145, y:744},
+      "C6_C9_T3":{x:366, y:740},
+      "C6_C9_T2":{x:366, y:775},
+      "C6_C9_T1":{x: 455, y: 775},
+      "C1_C7_T1":{x: 515, y: 286},
+      "C1_C7_T2":{x: 524 , y: 775 },
+      "C1_C7_T3":{x:366, y:775 },
+      "C7_C1_T1":{x:366, y:775 },
+      "C7_C1_T2":{x: 524 , y: 775 },
+      "C7_C1_T3":{x: 515, y: 286},
+      "C2_C7_T1":{x: 524 , y: 775 },
+      "C2_C7_T2":{x:366, y:775 },
+      "C7_C2_T1":{x:366, y:775 },
+      "C7_C2_T2":{x: 524 , y: 775 },
+      "C3_C7_T1":{x: 453 , y: 455},
+      "C3_C7_T2":{x: 455, y: 775},
+      "C3_C7_T3":{x:366, y:775},
+      "C7_C3_T3":{x: 453 , y: 455},
+      "C7_C3_T2":{x: 455, y: 775},
+      "C7_C3_T1":{x:366, y:775},
+      "C8_C7":{x:366, y:740},
+      "C7_C8":{x:366, y:740},
+      "C9_C7_T1":{x:145, y:744},
+      "C9_C7_T2":{x:366, y:740},
+      "C7_C9_T1":{x:366, y:740},
+      "C7_C9_T2":{x:145, y:744},
+      "C1_C8_T1":{x: 515, y: 286},
+      "C1_C8_T2":{x: 524 , y: 775},
+      "C1_C8_T3":{x:366, y:775},
+      "C1_C8_T4":{x:366, y:740},
+      "C8_C1_T1":{x:366, y:740},
+      "C8_C1_T2":{x:366, y:775},
+      "C8_C1_T3":{x: 524 , y: 775},
+      "C8_C1_T4":{x: 515, y: 286},
+      "C2_C8_T1":{x: 524 , y: 775},
+      "C2_C8_T2":{x:366, y:775},
+      "C2_C8_T3":{x:366, y:740},
+      "C8_C2_T1":{x:366, y:740},
+      "C8_C2_T2":{x:366, y:775},
+      "C8_C2_T3":{x: 524 , y: 775},
+      "C3_C8_T1":{x: 453 , y: 455},
+      "C3_C8_T2":{x: 455, y: 775},
+      "C3_C8_T3":{x:366, y:775},
+      "C3_C8_T4":{x:366, y:740},
+      "C8_C3_T1":{x:366, y:740},
+      "C8_C3_T2":{x:366, y:775},
+      "C8_C3_T3":{x: 455, y: 775},
+      "C8_C3_T4":{x: 453 , y: 455},
+      "C9_C8":{x:145, y:744},
+      "C8_C9":{x:145, y:744},
+      "C1_C9_T1":{x: 515, y: 286},
+      "C1_C9_T2":{x: 524 , y: 775},
+      "C1_C9_T3":{x:366, y:775},
+      "C1_C9_T4":{x:366, y:740},
+      "C1_C9_T5":{x:145, y:744},
+      "C9_C1_T1":{x:145, y:744},
+      "C9_C1_T2":{x:366, y:740},
+      "C9_C1_T3":{x:366, y:775},
+      "C9_C1_T4":{x: 524 , y: 775},
+      "C9_C1_T5":{x: 515, y: 286  },
+      "C3_C9_T1":{x: 453 , y: 455},
+      "C3_C9_T2":{x: 455, y: 775},
+      "C3_C9_T3":{x:366, y:775},
+      "C3_C9_T4":{x:366, y:740},
+      "C3_C9_T5":{x:145, y:744},
+      "C9_C3_T1":{x:145, y:744},
+      "C9_C3_T2":{x:366, y:740},
+      "C9_C3_T3":{x:366, y:775},
+      "C9_C3_T4":{x: 455, y: 775},
+      "C9_C3_T5":{x: 453 , y: 455},
+      "C2_C9_T1":{x: 524 , y: 775},
+      "C2_C9_T2":{x:366, y:775},
+      "C2_C9_T3":{x:366, y:740},
+      "C2_C9_T4":{x:145, y:744},
+      "C9_C2_T1":{x:145, y:744},
+      "C9_C2_T2":{x:366, y:740},
+      "C9_C2_T3":{x:366, y:775},
+      "C9_C2_T4":{x: 524 , y: 775},
+      "C5_C6_T1":{x: 1120, y: 286},
+      "C5_C6_T2":{x: 515, y: 286},
+      "C5_C6_T3":{x: 524, y: 455},
+      "C5_C6_T4":{x: 453 , y: 455},
+      "C6_C5_T1":{x: 453 , y: 455},
+      "C6_C5_T2":{x: 524, y: 455},
+      "C6_C5_T3":{x: 515, y: 286},
+      "C6_C5_T4":{x: 1120, y: 286},
+      "C5_C7_T1":{x: 1120, y: 286},
+      "C5_C7_T2":{x: 515, y: 286},
+      "C5_C7_T3":{x: 524 , y: 775},
+      "C5_C7_T4":{x:366, y:775},
+      "C7_C5_T1":{x:366, y:775},
+      "C7_C5_T2":{x: 524 , y: 775},
+      "C7_C5_T3":{x: 515, y: 286},
+      "C7_C5_T4":{x: 1120, y: 286},
+      "C5_C8_T1":{x: 1120, y: 286},
+      "C5_C8_T2":{x: 515, y: 286},
+      "C5_C8_T3":{x: 524 , y: 775},
+      "C5_C8_T4":{x:366, y:775},
+      "C5_C8_T5":{x:366, y:740},
+      "C8_C5_T1":{x:366, y:740},
+      "C8_C5_T2":{x:366, y:775},
+      "C8_C5_T3":{x: 524 , y: 775},
+      "C8_C5_T4":{x: 515, y: 286},
+      "C8_C5_T5":{x: 1120, y: 286},
+      "C5_C9_T1":{x: 1120, y: 286},
+      "C5_C9_T2":{x: 515, y: 286},
+      "C5_C9_T3":{x: 524 , y: 775},
+      "C5_C9_T4":{x:366, y:775},
+      "C5_C9_T5":{x:366, y:740},
+      "C5_C9_T6":{x:145, y:744},
+      "C9_C5_T1":{x:145, y:744},
+      "C9_C5_T2":{x:366, y:740},
+      "C9_C5_T3":{x:366, y:775},
+      "C9_C5_T4":{x: 524 , y: 775},
+      "C9_C5_T5":{x: 515, y: 286},
+      "C9_C5_T6":{x: 1120, y: 286},
 
   };
 
@@ -573,13 +982,19 @@ function navigateRoomToRoom(startRoom, endRoom) {
       (start.corridor === "C4" && end.corridor === "C1") ||
       (start.corridor === "C1" && end.corridor === "C4") || 
       (start.corridor === "C5" && end.corridor === "C1") ||
-      (start.corridor === "C1" && end.corridor === "C5")
+      (start.corridor === "C1" && end.corridor === "C5") ||
+      (start.corridor === "C8" && end.corridor === "C9") ||
+      (start.corridor === "C9" && end.corridor === "C8") ||
+      (start.corridor === "C8" && end.corridor === "C7") ||
+      (start.corridor === "C7" && end.corridor === "C8") ||
+      (start.corridor === "C3" && end.corridor === "C6") ||
+      (start.corridor === "C6" && end.corridor === "C3") 
   ) {
       
       const turningPoint = turningPoints[`${start.corridor}_${end.corridor}`];
       animateLinet1(canvasId, start.x, start.y, turningPoint.x, turningPoint.y, end.x, end.y);
   } else if (
-      (start.corridor === "C1" && end.corridor === "C3")  || (start.corridor === "C2" && end.corridor === "C4") || (start.corridor === "C2" && end.corridor === "C5") || (start.corridor === "C4" && end.corridor === "C5")
+      (start.corridor === "C1" && end.corridor === "C3")  || (start.corridor === "C2" && end.corridor === "C4") || (start.corridor === "C2" && end.corridor === "C5") || (start.corridor === "C4" && end.corridor === "C5") || (start.corridor === "C2" && end.corridor === "C6")  || (start.corridor === "C6" && end.corridor === "C2") || (start.corridor === "C7" && end.corridor === "C6") || (start.corridor === "C6" && end.corridor === "C7") || (start.corridor === "C7" && end.corridor === "C2")  || (start.corridor === "C2" && end.corridor === "C7") || (start.corridor === "C9" && end.corridor === "C7") || (start.corridor === "C7" && end.corridor === "C9")|| (start.corridor === "C3" && end.corridor === "C1") ||  (start.corridor === "C4" && end.corridor === "C2") ||  (start.corridor === "C5" && end.corridor === "C2") || (start.corridor === "C5" && end.corridor === "C4")
   ) {
       
       const turningPoint1 = turningPoints[`${start.corridor}_${end.corridor}_T1`];
@@ -594,7 +1009,7 @@ function navigateRoomToRoom(startRoom, endRoom) {
       animateLinet2(canvasId, start.x, start.y, turningPoint1.x, turningPoint1.y, turningPoint2.x, turningPoint2.y, end.x, end.y);
   } 
     else if(
-      (start.corridor === "C3" && end.corridor === "C4") || (start.corridor === "C3" && end.corridor === "C5")
+      (start.corridor === "C3" && end.corridor === "C4") || (start.corridor === "C3" && end.corridor === "C5") || (start.corridor === "C1" && end.corridor === "C6") || (start.corridor === "C6" && end.corridor === "C1") || (start.corridor === "C6" && end.corridor === "C8") || (start.corridor === "C8" && end.corridor === "C6") || (start.corridor === "C1" && end.corridor === "C7") || (start.corridor === "C7" && end.corridor === "C1") || (start.corridor === "C3" && end.corridor === "C7") || (start.corridor === "C7" && end.corridor === "C3") || (start.corridor === "C2" && end.corridor === "C8") || (start.corridor === "C8" && end.corridor === "C2")
     ){
       const turningPoint1 = turningPoints[`${start.corridor}_${end.corridor}_T1`];
       const turningPoint2 = turningPoints[`${start.corridor}_${end.corridor}_T2`];
@@ -608,6 +1023,36 @@ function navigateRoomToRoom(startRoom, endRoom) {
       const turningPoint2 = turningPoints[`${end.corridor}_${start.corridor}_T2`];
       const turningPoint3 = turningPoints[`${end.corridor}_${start.corridor}_T1`];
       animateLinet3(canvasId, start.x, start.y, turningPoint1.x, turningPoint1.y, turningPoint2.x, turningPoint2.y, turningPoint3.x, turningPoint3.y, end.x, end.y);
+    }
+    else if(
+      (start.corridor === "C1" && end.corridor === "C8") || (start.corridor === "C8" && end.corridor === "C1") || (start.corridor === "C6" && end.corridor === "C9") || (start.corridor === "C9" && end.corridor === "C6") || (start.corridor === "C3" && end.corridor === "C8") || (start.corridor === "C8" && end.corridor === "C3") || (start.corridor === "C2" && end.corridor === "C9") || (start.corridor === "C9" && end.corridor === "C2") || (start.corridor === "C5" && end.corridor === "C6") || (start.corridor === "C6" && end.corridor === "C5") || (start.corridor === "C5" && end.corridor === "C7") || (start.corridor === "C7" && end.corridor === "C5") 
+    ){
+      const turningPoint1 = turningPoints[`${start.corridor}_${end.corridor}_T1`];
+      const turningPoint2 = turningPoints[`${start.corridor}_${end.corridor}_T2`];
+      const turningPoint3 = turningPoints[`${start.corridor}_${end.corridor}_T3`];
+      const turningPoint4 = turningPoints[`${start.corridor}_${end.corridor}_T4`];
+      animateLineT4(canvasId, start.x, start.y, turningPoint1.x, turningPoint1.y, turningPoint2.x, turningPoint2.y, turningPoint3.x, turningPoint3.y,turningPoint4.x,turningPoint4.y, end.x, end.y);
+    }
+    else if(
+      (start.corridor === "C1" && end.corridor === "C9") || (start.corridor === "C9" && end.corridor === "C1") || (start.corridor === "C3" && end.corridor === "C9") || (start.corridor === "C9" && end.corridor === "C3") || (start.corridor === "C5" && end.corridor === "C8") || (start.corridor === "C8" && end.corridor === "C5")
+    ){
+      const turningPoint1 = turningPoints[`${start.corridor}_${end.corridor}_T1`];
+      const turningPoint2 = turningPoints[`${start.corridor}_${end.corridor}_T2`];
+      const turningPoint3 = turningPoints[`${start.corridor}_${end.corridor}_T3`];
+      const turningPoint4 = turningPoints[`${start.corridor}_${end.corridor}_T4`];
+      const turningPoint5 = turningPoints[`${start.corridor}_${end.corridor}_T5`];
+      animateLineT5(canvasId, start.x, start.y, turningPoint1.x, turningPoint1.y, turningPoint2.x, turningPoint2.y, turningPoint3.x, turningPoint3.y,turningPoint4.x,turningPoint4.y,turningPoint5.x,turningPoint5.y, end.x, end.y);
+    }
+    else if(
+      (start.corridor === "C5" && end.corridor === "C9") || (start.corridor === "C9" && end.corridor === "C5") 
+    ){
+      const turningPoint1 = turningPoints[`${start.corridor}_${end.corridor}_T1`];
+      const turningPoint2 = turningPoints[`${start.corridor}_${end.corridor}_T2`];
+      const turningPoint3 = turningPoints[`${start.corridor}_${end.corridor}_T3`];
+      const turningPoint4 = turningPoints[`${start.corridor}_${end.corridor}_T4`];
+      const turningPoint5 = turningPoints[`${start.corridor}_${end.corridor}_T5`];
+      const turningPoint6 = turningPoints[`${start.corridor}_${end.corridor}_T6`];
+      animateLineT6(canvasId, start.x, start.y, turningPoint1.x, turningPoint1.y, turningPoint2.x, turningPoint2.y, turningPoint3.x, turningPoint3.y,turningPoint4.x,turningPoint4.y,turningPoint5.x,turningPoint5.y,turningPoint6.x,turningPoint6.y, end.x, end.y);
     }
 }
 
